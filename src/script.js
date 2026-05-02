@@ -121,18 +121,12 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   }
 
   const result = await window.api.register({ email, password });
-    console.log('register result:', result);
 
-  if (!result.success) {
-    const error = result.error;
-    let message = 'Registrace se nezdařila';
-    if (error.includes('User already registered')) message = 'Účet s tímto emailem již existuje';
-    else if (error.includes('rate limit') || error.includes('Rate limit')) message = 'Příliš mnoho pokusů, zkuste to prosím za chvíli';
-    else if (error.includes('invalid')) message = 'Neplatný email nebo heslo';
-    showToast(message, 'error');
-  } else {
+  if (result.success) {
     document.getElementById('confirm-email').textContent = email;
     showAuthPage('page-email-confirm');
+  } else {
+    showToast('Chyba registrace: ' + result.error, 'error');
   }
 });
 
@@ -146,12 +140,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const result = await window.api.login({ email, password });
 
   if (!result.success) {
-    const error = result.error;
-    let message = 'Přihlášení se nezdařilo';
-    if (error.includes('Invalid login credentials')) message = 'Nesprávný email nebo heslo';
-    else if (error.includes('Email not confirmed')) message = 'Email není potvrzený';
-    else if (error.includes('Too many requests')) message = 'Příliš mnoho pokusů, zkuste to později';
-    showToast(message, 'error');
+    showToast('Chyba přihlášení: ' + result.error, 'error');
     return;
   }
 
@@ -214,7 +203,7 @@ document.getElementById('link-to-login').addEventListener('click', (e) => {
 // Zpět na login z potvrzení mailu
 document.getElementById('backToLogin').addEventListener('click', (e) => {
   e.preventDefault();
-  showAuthPage('page-register');
+  showAuthPage('page-login');
 });
 
 document.getElementById('forgot-password-link').addEventListener('click', async (e) => {
@@ -234,6 +223,7 @@ document.getElementById('forgot-password-link').addEventListener('click', async 
 
 // Deep link callback — zpracuje token z magic linku
 document.addEventListener('DOMContentLoaded', async () => {
+  document.getElementById('page-login').classList.add('hidden');
   try {
     window.electronAuth.onAuthCallback(async (url) => {
       try {
@@ -282,9 +272,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
       }
       
-      // ← KLÍČOVÁ ZMĚNA: nejdřív zkus getProfile
-      // Pokud vrátí null, možná ještě není session v main procesu
-      // Počkej chvíli a zkus znovu
       const profile = await window.api.getProfile(session.user.id);
       
       if (!profile || !profile.username || profile.username.trim() === '') {
@@ -309,29 +296,21 @@ function validatePassword(password) {
   return {
     length: password.length >= 8,
     number: /\d/.test(password),
-    special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+    special: /[^a-zA-Z0-9]/.test(password)
   };
 }
 
-function updatePasswordRules(password, prefix = '') {
+function updatePasswordRules(password) {
   const rules = validatePassword(password);
 
-  const lengthEl = document.getElementById(`${prefix}rule-length`);
-  const numberEl = document.getElementById(`${prefix}rule-number`);
-  const specialEl = document.getElementById(`${prefix}rule-special`);
+  document.getElementById('rule-length').classList.toggle('valid', rules.length);
+  document.getElementById('rule-length').classList.toggle('invalid', !rules.length);
 
-  if (lengthEl) {
-    lengthEl.classList.toggle('valid', rules.length);
-    lengthEl.classList.toggle('invalid', !rules.length);
-  }
-  if (numberEl) {
-    numberEl.classList.toggle('valid', rules.number);
-    numberEl.classList.toggle('invalid', !rules.number);
-  }
-  if (specialEl) {
-    specialEl.classList.toggle('valid', rules.special);
-    specialEl.classList.toggle('invalid', !rules.special);
-  }
+  document.getElementById('rule-number').classList.toggle('valid', rules.number);
+  document.getElementById('rule-number').classList.toggle('invalid', !rules.number);
+
+  document.getElementById('rule-special').classList.toggle('valid', rules.special);
+  document.getElementById('rule-special').classList.toggle('invalid', !rules.special);
 
   return rules.length && rules.number && rules.special;
 }
@@ -340,12 +319,14 @@ const registerPasswordInput = document.getElementById('registerPassword');
 
 if (registerPasswordInput) {
   registerPasswordInput.addEventListener('input', (e) => {
-  const rulesBox = document.getElementById('passwordRules');
-  if (e.target.value.length > 0) rulesBox.classList.remove('hidden');
-  else rulesBox.classList.add('hidden');
-  updatePasswordRules(e.target.value);
-
-});
+    const rulesBox = document.getElementById('passwordRules');
+    if (e.target.value.length > 0) {
+      rulesBox.classList.remove('hidden');
+    } else {
+      rulesBox.classList.add('hidden');
+    }
+    updatePasswordRules(e.target.value);
+  });
 }
 // ==============================
 // 3. SIDEBAR — dropdown a nastavení
@@ -645,7 +626,7 @@ function createTaskElement(task) {
     <div class="task-checkbox ${task.status === 1 ? 'completed' : ''}"></div>
     <div class="task-body">
       <p class="task-title ${task.status === 1 ? 'completed' : ''}">${task.title}</p>
-      <p class="task-description ${!task.description ? 'no-value' : ''}">${task.description || 'Bez popisu'}</p>
+      <p class="task-description ${!task.description ? 'no-value' : ''}">${task.description || 'Bez popisku'}</p>
 
       <div class="task-meta">
         <span class="task-category">
@@ -1452,7 +1433,7 @@ document.getElementById('savePasswordChanges')?.addEventListener('click', async 
   }
 
   const passwordOk = validatePassword(newPassword);
-    if (!(passwordOk.length && passwordOk.number && passwordOk.special)) {
+  if (!(passwordOk.length && passwordOk.letter && passwordOk.number)) {
     showToast('Nové heslo nesplňuje požadavky', 'error');
     return;
   }
@@ -1616,8 +1597,17 @@ function createProjectCard(project, members, progress, totalTasks) {
         </span>
         <h3 class="project-card-title">${project.title}</h3>
         <p class="project-card-description ${!project.description ? 'no-value' : ''}">
-        ${project.description || 'Bez popisu'}
+        ${project.description || 'Bez popisku'}
       </p>
+      </div>
+      <div class="project-card-actions">
+        <button class="project-card-btn delete-project-card" title="Smazat">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+          </svg>
+        </button>
       </div>
     </div>
     <div class="project-card-meta">
@@ -1652,6 +1642,15 @@ function createProjectCard(project, members, progress, totalTasks) {
   div.addEventListener('click', (e) => {
     if (e.target.closest('.project-card-btn')) return;
     openProjectDetail(project.id);
+  });
+
+  div.querySelector('.delete-project-card').addEventListener('click', async (e) => {
+    e.stopPropagation();
+    const ok = await showConfirm('Smazat projekt?', 'Smažou se i všechny úkoly a přílohy projektu.');
+    if (!ok) return;
+    await window.api.deleteProject(project.id);
+    showToast('Projekt byl smazán');
+    await loadProjects();
   });
 
   return div;
@@ -1752,7 +1751,7 @@ if (leaveBtn) leaveBtn.style.display = isOwner ? 'none' : '';
     </div>
     <span class="project-member-chip-name">${m.username}</span>
     <span class="project-member-role-badge ${m.role === 'owner' ? 'badge-owner' : 'badge-member'}">
-      ${m.role === 'owner' ? 'Owner' : 'Member'}
+      ${m.role === 'owner' ? 'Vlastník' : 'Člen'}
     </span>
     ${isOwner && m.role !== 'owner' ? `
       <button class="remove-member-btn" data-member-id="${m.id}" title="Odebrat člena">
@@ -2215,24 +2214,6 @@ document.getElementById('removeAvatarBtn')?.addEventListener('click', async () =
   showToast('Profilový obrázek byl odebrán');
 });
 
-document.getElementById('deleteAccountBtn')?.addEventListener('click', async () => {
-  const ok = await showConfirm(
-    'Opravdu chcete smazat účet?',
-    'Tato akce je nevratná. Všechna vaše data budou trvale odstraněna.'
-  );
-  if (!ok) return;
-
-  const result = await window.api.deleteAccount();
-
-  if (!result?.success) {
-    showToast('Nepodařilo se smazat účet', 'error');
-    return;
-  }
-
-  showToast('Účet byl smazán');
-  showAuthPage('page-login');
-});
-
 // ==============================
 // NAVIGACE — DŮLEŽITÉ
 // ==============================
@@ -2326,6 +2307,10 @@ document.getElementById('onboardingForm').addEventListener('submit', async (e) =
   // 2. Pokud je vybraná profilovka, nahraj ji
   const avatarFile = document.getElementById('onboardingAvatar').files?.[0];
   if (avatarFile) {
+    if (!avatarFile.type.startsWith('image/')) {
+      showToast('Prosím vyberte pouze obrázek', 'error');
+      return;
+    }
     const arrayBuffer = await avatarFile.arrayBuffer();
     const bytes = Array.from(new Uint8Array(arrayBuffer));
 
@@ -2340,7 +2325,6 @@ document.getElementById('onboardingForm').addEventListener('submit', async (e) =
       showToast('Profil uložen, ale profilovku se nepodařilo nahrát', 'error');
     }
   }
-
 
   // 3. Načti aktuální profil z DB (teď už RLS nevadí)
   const profile = await window.api.getProfile(session.user.id);
@@ -2782,12 +2766,3 @@ function renderUpcomingEvents(eventMap, today) {
     list.appendChild(group);
   });
 }
-
-document.getElementById('onboardingAvatar').addEventListener('change', (e) => {
-  const label = document.getElementById('onboardingAvatarLabel');
-  if (e.target.files?.[0]) {
-    label.textContent = e.target.files[0].name;
-  } else {
-    label.textContent = 'Vybrat soubor';
-  }
-});

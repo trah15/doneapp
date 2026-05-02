@@ -43,9 +43,31 @@ body {
 .hidden { display: none !important; }
 .page { width: 100%; }
 
+/* ==============================
+   GLOBÁLNÍ
+============================== */
+button, input, textarea, select {
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+}
+
+.input-error { border-color: #C0392B !important; }
+
+.error-message {
+  color: #C0392B;
+  font-size: 12px;
+  font-family: 'InterRegular';
+  margin-top: -12px;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: #C0392B;
+  font-size: 13px;
+}
 
 /* ==============================
-   AUTH STRÁNKY
+   1. AUTH STRÁNKY (PŘIHLÁŠENÍ, REGISTRACE)
 ============================== */
 .auth-page {
   position: fixed;
@@ -58,8 +80,8 @@ body {
   z-index: 300;
 }
 
-.auth-page.hidden { 
-  display: none !important; 
+.auth-page.hidden {
+  display: none !important;
 }
 
 .auth-card {
@@ -72,56 +94,57 @@ body {
 }
 
 .auth-logo {
-  display: block; 
-  margin: 0 auto 18px auto; 
-  max-width: 80px; 
+  display: block;
+  margin: 0 auto 18px auto;
+  max-width: 80px;
 }
 
-.auth-title { 
-  text-align: center; 
-  font-family: 'InterSemiBold'; 
-  color: #002344; 
-  font-size: 24px; 
-  margin: 0 0 8px 0; 
+.auth-title {
+  text-align: center;
+  font-family: 'InterSemiBold';
+  color: #002344;
+  font-size: 24px;
+  margin: 0 0 8px 0;
 }
 
-.auth-subtitle { 
-  text-align: center; 
-  color: var(--color-kolonky); 
-  font-family: 'InterRegular'; 
-  font-size: 14px; 
-  margin: 0 0 24px 0; 
+.auth-subtitle {
+  text-align: center;
+  color: var(--color-kolonky);
+  font-family: 'InterRegular';
+  font-size: 14px;
+  margin: 0 0 24px 0;
 }
 
-.auth-options { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  margin-bottom: 16px; 
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
-.auth-card input { 
+.auth-card input {
   margin-bottom: 10px;
- }
-
-.checkbox-label { 
-  display: flex; 
-  align-items: center; 
-  gap: 8px; 
-  font-family: 'InterRegular'; 
-  font-size: 13px; 
-  color: #002344; 
-  cursor: pointer; }
-
-.forgot-password { 
-  font-family: 'InterRegular'; 
-  font-size: 13px; 
-  color: #0064B3; 
-  text-decoration: none; 
 }
 
-.forgot-password:hover { 
-  text-decoration: underline; 
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'InterRegular';
+  font-size: 13px;
+  color: #002344;
+  cursor: pointer;
+}
+
+.forgot-password {
+  font-family: 'InterRegular';
+  font-size: 13px;
+  color: #0064B3;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
 }
 
 .auth-submit-btn {
@@ -138,27 +161,29 @@ body {
   margin-top: 8px;
 }
 
-.auth-submit-btn:hover { 
-  background: #005BA3; 
+.auth-submit-btn:hover {
+  background: #005BA3;
 }
 
-
-.auth-footer { 
+.auth-footer {
   text-align: center;
-  margin-top: 20px; 
-  font-family: 'InterRegular'; 
-  font-size: 13px; 
-  color:var(--color-VSECHENTEXT)
-}
-.auth-footer a 
-{ color: var(--color-text_odkaz); 
-  font-family: 'InterRegular'; 
-  text-decoration: none; 
-}
-.auth-footer a:hover { 
-  text-decoration: underline; 
+  margin-top: 20px;
+  font-family: 'InterRegular';
+  font-size: 13px;
+  color: var(--color-VSECHENTEXT);
 }
 
+.auth-footer a {
+  color: var(--color-text_odkaz);
+  font-family: 'InterRegular';
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Potvrzení emailu */
 .email-confirm-icon {
   width: 64px; height: 64px;
   background: #EBF1FF;
@@ -181,11 +206,66 @@ body {
   line-height: 1.6;
 }
 
-.email-confirm-box strong { 
-  color: var(--color-BUTTONY); 
-  font-family: 'InterSemiBold'; }
+.email-confirm-box strong {
+  color: var(--color-BUTTONY);
+  font-family: 'InterSemiBold';
+}
 
-  .file-upload-btn {
+/* Heslo – pravidla a viditelnost */
+.password-rules {
+  margin-top: -4px;
+  margin-bottom: 10px;
+}
+
+.password-rule {
+  font-family: 'InterRegular';
+  font-size: 12px;
+  margin: 4px 0;
+  transition: color 0.2s;
+}
+
+.password-rule.invalid { color: #C0392B; }
+.password-rule.valid { color: #1a7f4b; }
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
+  padding-right: 44px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eye-icon {
+  width: 18px;
+  height: 18px;
+  stroke: #888;
+  fill: none;
+  stroke-width: 2;
+}
+
+.toggle-password:hover .eye-icon {
+  stroke: #0088F0;
+}
+
+/* ==============================
+   2. ONBOARDING
+============================== */
+.file-upload-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -204,10 +284,8 @@ body {
   background: #EBF1FF;
 }
 
-
-
 /* ==============================
-   SIDEBAR
+   3. HLAVNÍ APLIKACE – SIDEBAR
 ============================== */
 .sidebar {
   width: 280px;
@@ -221,58 +299,10 @@ body {
   overflow-y: auto;
 }
 
-.sidebar-category-task { position: relative; }
-.sidebar-category-project { position: relative; }
-
-.sidebar-category-task .category-delete-btn,
-.sidebar-category-project .category-delete-btn {
-  display: flex;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 6px;
-  color: #C0392B;
-  align-items: center;
-}
-
-.sidebar-category-task:hover .category-delete-btn,
-.sidebar-category-project:hover .category-delete-btn { display: flex; align-items: center; }
-
-.sidebar-category-task .category-delete-btn:hover,
-.sidebar-category-project .category-delete-btn:hover { background: #fff0f0; }
-
-.sidebar-category-task.active .category-delete-btn,
-.sidebar-category-project.active .category-delete-btn { color: white; }
-
-.sidebar-category-task.active .category-delete-btn:hover,
-.sidebar-category-project.active .category-delete-btn:hover { background: rgba(255,255,255,0.2); }
-
-.input-error { border-color: #C0392B !important; }
-
-.error-message {
-  color: #C0392B;
-  font-size: 12px;
-  font-family: 'InterRegular';
-  margin-top: -12px;
-  margin-bottom: 8px;
-}
-
-.content {
-  flex-grow: 1;
-  padding: 24px;
-  overflow-y: auto;
-  transition: padding-right 0.25s ease;
-}
-
-.content.panel-active { padding-right: 444px; }
-
 .logo { display: flex; justify-content: center; }
 .logo img { max-width: 80px; height: auto; }
 
-/* ==============================
-   USER SEKCE
-============================== */
+/* User sekce */
 .user-dropdown-wrapper { position: relative; }
 
 .user-section {
@@ -292,7 +322,7 @@ body {
 .profile-icon {
   width: 45px;
   height: 45px;
-  background-color: #0088F0;
+  background-color: var(--color-BUTTONY);
   color: white;
   border-radius: 50%;
   display: flex;
@@ -307,34 +337,7 @@ body {
   overflow: hidden;
 }
 
-.profile-icon.has-avatar {
-  color: transparent;
-}
-
-.settings-avatar-preview {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: #0088F0;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'InterBold';
-  font-size: 28px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-
-.settings-avatar-preview.has-avatar {
-  color: transparent;
-}
-
-.profile-icon.has-avatar {
-  color: transparent;
-}
+.profile-icon.has-avatar { color: transparent; }
 
 .user-name {
   display: flex;
@@ -345,8 +348,8 @@ body {
   overflow: hidden;
 }
 
-.dropdown-arrow img { max-width: 14px; height: 14px; display: block; }
 .space-type { margin: 0; font-size: 11px; font-family: 'InterRegular'; color: #666; }
+.dropdown-arrow img { max-width: 14px; height: 14px; display: block; }
 
 .dropdown-content {
   position: absolute;
@@ -397,9 +400,7 @@ body {
 
 .log-out:hover { background-color: #fff0f0; }
 
-/* ==============================
-   SEARCH
-============================== */
+/* Vyhledávání */
 .search-wrapper {
   position: relative;
   display: flex;
@@ -426,9 +427,7 @@ body {
 .search-wrapper input:focus { border-color: #0088F0; background: white; }
 .search-wrapper input::placeholder { color: #aaa; }
 
-/* ==============================
-   MENU
-============================== */
+/* Menu */
 .section-label {
   font-size: 12px;
   font-family: 'InterRegular';
@@ -454,42 +453,203 @@ body {
   transition: background 0.15s, color 0.15s;
 }
 
-.menu-btn:hover { 
-  background: #f0f0f0; 
-}
-.menu-btn.active { 
-  background: var(--color-BUTTONY); 
-  color: white; 
-  font-family: 'InterSemiBold'; 
+.menu-btn:hover { background: #f0f0f0; }
+
+.menu-btn.active {
+  background: var(--color-BUTTONY);
+  color: white;
+  font-family: 'InterSemiBold';
 }
 
-.menu-btn.active svg { 
-  stroke: white; 
+.menu-btn.active svg { stroke: white; }
+
+.create-btn { color: var(--color-BUTTONY); }
+.create-btn svg { stroke: var(--color-BUTTONY); }
+.create-btn:hover { color: #002344; }
+.create-btn:hover svg { stroke: #002344; }
+
+.menu-divider {
+  height: 1px;
+  background: #efefef;
+  margin: 8px 0;
 }
 
-.create-btn { 
-  color: var(--color-BUTTONY); 
+/* Kategorie v sidebaru */
+.sidebar-category-task { position: relative; }
+.sidebar-category-project { position: relative; }
+
+.category-actions {
+  display: none;
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  align-items: center;
+  gap: 2px;
 }
 
-.create-btn svg { 
-  stroke: var(--color-BUTTONY); 
+.sidebar-category-task:hover .category-actions,
+.sidebar-category-project:hover .category-actions {
+  display: flex;
 }
 
-.create-btn:hover { 
-  color: #002344; 
+.category-edit-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  color: var(--color-BUTTONY);
+  display: flex;
+  align-items: center;
 }
-.create-btn:hover svg {
-   stroke: #002344; 
-  }
 
-.menu-divider { 
-  height: 1px; background: #efefef; 
-  margin: 8px 0; 
+.category-edit-btn:hover { background: #EBF1FF; }
+
+.sidebar-category-task.active .category-edit-btn,
+.sidebar-category-project.active .category-edit-btn { color: white; }
+
+.sidebar-category-task.active .category-edit-btn:hover,
+.sidebar-category-project.active .category-edit-btn:hover { background: rgba(255,255,255,0.2); }
+
+.sidebar-category-task .category-delete-btn,
+.sidebar-category-project .category-delete-btn {
+  display: flex;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  color: #C0392B;
+  align-items: center;
+}
+
+.sidebar-category-task:hover .category-delete-btn,
+.sidebar-category-project:hover .category-delete-btn { display: flex; align-items: center; }
+
+.sidebar-category-task .category-delete-btn:hover,
+.sidebar-category-project .category-delete-btn:hover { background: #fff0f0; }
+
+.sidebar-category-task.active .category-delete-btn,
+.sidebar-category-project.active .category-delete-btn { color: white; }
+
+.sidebar-category-task.active .category-delete-btn:hover,
+.sidebar-category-project.active .category-delete-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* Výsledky vyhledávání */
+.search-results {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+  border: 1px solid #e8e8e8;
+  z-index: 500;
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+
+.search-section { padding: 0; }
+
+.search-section-label {
+  font-family: 'InterSemiBold';
+  font-size: 11px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  padding: 8px 14px 4px;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.search-result-item:hover { background: #EBF1FF; }
+
+.search-result-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.task-icon { background: #EBF1FF; color: #0088F0; }
+.project-icon { background: #f0ebff; color: #6c3fc4; }
+
+.search-result-body { flex: 1; min-width: 0; }
+
+.search-result-title {
+  font-family: 'InterSemiBold';
+  font-size: 13px;
+  color: #002344;
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-title mark {
+  background: #fff3b0;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+.search-result-sub {
+  font-family: 'InterRegular';
+  font-size: 11px;
+  color: #999;
+  margin: 0;
+}
+
+.search-result-badge {
+  font-family: 'InterSemiBold';
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.search-result-badge.done { background: #e8f8ef; color: #1a7f4b; }
+
+.search-empty {
+  font-family: 'InterRegular';
+  font-size: 13px;
+  color: #aaa;
+  padding: 16px 14px;
+  text-align: center;
 }
 
 /* ==============================
-   HLAVNÍ OBSAH
+   4. HLAVNÍ OBSAH
 ============================== */
+.content {
+  flex-grow: 1;
+  padding: 24px;
+  overflow-y: auto;
+  transition: padding-right 0.25s ease;
+}
+
+.content.panel-active { padding-right: 444px; }
+
+.content.is-loading {
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
 .page-title { font-family: 'InterBold'; font-size: 28px; color: #002344; margin: 10px 0 0 0; }
 .page-subtitle { font-family: 'InterRegular'; font-size: 14px; color: #888; margin: 0 0 24px 0; }
 
@@ -502,10 +662,7 @@ body {
   flex-wrap: wrap;
 }
 
-.filters { 
-  display: flex; 
-  gap: 8px; 
-}
+.filters { display: flex; gap: 8px; }
 
 .filter-btn {
   padding: 9px 20px;
@@ -518,14 +675,8 @@ body {
   transition: background 0.15s, color 0.15s;
 }
 
-.filter-btn.active { 
-  background: var(--color-BUTTONY); 
-  color: white; 
-}
-
-.filter-btn:hover:not(.active) { 
-  background: var(--color-svetlyhoverfiltry); 
-}
+.filter-btn.active { background: var(--color-BUTTONY); color: white; }
+.filter-btn:hover:not(.active) { background: var(--color-svetlyhoverfiltry); }
 
 .add-task-btn,
 .add-project-btn {
@@ -544,26 +695,683 @@ body {
 }
 
 .add-task-btn:hover,
-.add-project-btn:hover { 
-  background: var(--color-BUTTONY-HOVER); 
-}
+.add-project-btn:hover { background: var(--color-BUTTONY-HOVER); }
 
 .empty-state {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 300px;
+  width: 100%;
   font-family: 'InterRegular';
   font-size: 15px;
   color: #aaa;
 }
 
-.project-share-section {
-  border-top: 1px solid #f0f0f0;
-  padding-top: 18px;
-  margin-top: 18px;
+/* ==============================
+   5. ÚKOLY
+============================== */
+.task-item {
+  background: white;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
+.task-item:hover { border-color: #0088F0; }
+.task-item.active-detail { border-color: #0088F0; }
+
+#projectTaskList .task-item {
+  border: 1.5px solid #e0ecf8;
+  box-shadow: 0 1px 4px rgba(0, 100, 179, 0.07);
+}
+
+#projectTaskList .task-item:hover {
+  border-color: #0088F0;
+  box-shadow: 0 2px 8px rgba(0, 100, 179, 0.13);
+}
+
+.task-checkbox {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 2px;
+}
+
+.task-checkbox:hover { border-color: #0088F0; }
+.task-checkbox.completed { background: #0088F0; border-color: #0088F0; }
+
+.task-body { flex-grow: 1; }
+
+.task-title { font-family: 'InterSemiBold'; font-size: 14px; color: #002344; margin: 0 0 4px 0; }
+.task-title.completed { text-decoration: line-through; color: #aaa; }
+
+.task-description { font-family: 'InterRegular'; font-size: 13px; color: #888; margin: 0 0 6px 0; }
+
+.task-meta { display: flex; align-items: center; gap: 12px; }
+
+.task-category { display: flex; align-items: center; gap: 5px; font-family: 'InterRegular'; font-size: 12px; color: #555; }
+.task-date { display: flex; align-items: center; gap: 5px; font-family: 'InterRegular'; font-size: 12px; color: #888; }
+.task-date.overdue { color: #C0392B; font-family: 'InterSemiBold'; }
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.task-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+}
+
+.task-btn:hover { background: #f0f0f0; }
+.task-btn.star svg { stroke: #f0c040; }
+.task-btn.star.active svg { fill: #f0c040; }
+.task-btn.delete svg { stroke: #C0392B; }
+
+.task-section-divider {
+  display: flex;
+  align-items: center;
+  margin: 16px 0 8px 0;
+  gap: 10px;
+}
+
+.task-section-divider::before,
+.task-section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.task-section-divider-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #999;
+  font-family: 'InterSemiBold';
+  white-space: nowrap;
+}
+
+/* Přiřazení členů k úkolům */
+.task-assignees-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.task-assignee-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 4px;
+  background: #EBF1FF;
+  border: 1px solid #d8e8f8;
+  border-radius: 999px;
+}
+
+.task-assignee-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'InterBold';
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.task-assignee-name {
+  font-family: 'InterRegular';
+  font-size: 13px;
+  color: #002344;
+}
+
+/* Boční panel pro detail úkolu */
+.task-detail-panel {
+  position: fixed;
+  top: 0; right: 0;
+  width: 420px;
+  height: 100vh;
+  background: white;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.09);
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+}
+
+.task-detail-panel.panel-open { transform: translateX(0); }
+
+.task-detail-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.task-detail-close:hover { background: #f0f0f0; }
+
+.task-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid #efefef;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.task-detail-title {
+  font-family: 'InterBold';
+  font-size: 18px;
+  color: #002344;
+  margin: 0;
+}
+
+.task-detail-body {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-VSECHENTEXT);
+  gap: 6px;
+  padding: 24px;
+}
+
+.task-detail-body label {
+  font-family: 'InterRegular';
+  font-size: 13px;
+  color: var(--color-VSECHENTEXT);
+  margin-top: 10px;
+}
+
+.task-detail-body input,
+.task-detail-body textarea,
+.task-detail-body select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'InterRegular';
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.task-detail-body input:focus,
+.task-detail-body textarea:focus,
+.task-detail-body select:focus { border-color: #0088F0; }
+
+.task-detail-body .save-changes {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  margin-top: 20px;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.detail-assignees-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.detail-assignee-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'InterRegular';
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.detail-assignee-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.detail-assignee-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'InterBold';
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.detail-assignee-avatar.has-image { color: transparent; }
+
+.detail-assignee-name {
+  font-family: 'InterRegular';
+  font-size: 13px;
+  color: #002344;
+}
+
+/* ==============================
+   6. PROJEKTY – SEZNAM
+============================== */
+.project-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.secondary-project-btn {
+  background: white;
+  color: var(--color-BUTTONY);
+  border: 1px solid #d9e6f2;
+}
+
+.secondary-project-btn:hover { background: #EBF1FF; }
+
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.project-list:has(.empty-state) {
+  display: flex;
+  justify-content: center;
+}
+
+.project-card {
+  min-height: 160px;
+  justify-content: space-between;
+  background: white;
+  border-radius: 16px;
+  padding: 18px 20px;
+  border: 1px solid #e3edf7;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.project-card:hover {
+  border-color: #0088F0;
+  box-shadow: 0 6px 20px rgba(0,100,179,0.10);
+  transform: translateY(-1px);
+}
+
+.project-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex: 1;
+}
+
+.project-card-info { flex: 1; min-width: 0; }
+
+.project-card-category {
+  font-family: 'InterRegular';
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.project-card-category.no-category { color: #bbb; }
+
+.project-card-title {
+  font-family: 'InterSemiBold';
+  font-size: 16px;
+  color: #002344;
+  margin: 0 0 6px 0;
+}
+
+.project-card-description {
+  font-family: 'InterRegular';
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-card-description.no-value { color: #bbb; }
+.no-value { color: #bbb; }
+
+.project-card-actions { display: flex; gap: 4px; flex-shrink: 0; }
+
+.project-card-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.project-card-btn:hover { background: #f0f0f0; }
+
+.project-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.project-card-no-date { font-size: 11px; color: #bbb; font-family: 'InterRegular'; }
+.no-members { color: #bbb; }
+
+.project-card-members { display: flex; align-items: center; gap: 4px; }
+
+.project-members-count {
+  font-family: 'InterRegular';
+  font-size: 12px;
+  color: #888;
+  margin-left: 6px;
+}
+
+.project-card-date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'InterSemiBold';
+  font-size: 12px;
+  color: #C0392B;
+}
+
+.project-card-progress { margin-top: 10px; }
+
+/* Progress bar */
+.project-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #e8f0f8;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.project-progress-fill {
+  height: 100%;
+  background: #0088F0;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.project-progress-label { font-family: 'InterRegular'; font-size: 11px; color: #888; }
+
+/* Avatary členů */
+.member-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'InterBold';
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.member-avatar-small {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'InterBold';
+  font-size: 10px;
+  flex-shrink: 0;
+  border: 2px solid white;
+  margin-left: -6px;
+}
+
+.member-avatar-small:first-child { margin-left: 0; }
+.member-avatar-small.extra { background: #aaa; font-size: 9px; }
+
+/* ==============================
+   7. DETAIL PROJEKTU
+============================== */
+.project-detail-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.project-detail-topbar-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'InterRegular';
+  font-size: 14px;
+  color: var(--color-BUTTONY);
+  padding: 6px 0;
+  transition: color 0.15s;
+}
+
+.back-btn:hover { color: var(--color-BUTTONY-HOVER); }
+
+.project-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: none;
+  font-family: 'InterSemiBold';
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.project-action-btn.edit { background: white; color: var(--color-BUTTONY); }
+.project-action-btn.edit:hover { background: #f8f8f8; }
+.project-action-btn.delete { background: #fff0f0; color: #C0392B; }
+.project-action-btn.delete:hover { background: #ffe0e0; }
+
+/* Hero karta projektu */
+.project-hero-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0,46,83,0.06);
+}
+
+.project-hero-banner {
+  height: 140px;
+  background: #0088F0;
+  position: relative;
+}
+
+.project-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='40' cy='40' r='30'/%3E%3Ccircle cx='0' cy='0' r='20'/%3E%3Ccircle cx='80' cy='80' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.project-hero-body { padding: 24px 28px 28px 28px; }
+
+.project-hero-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.project-detail-category { font-family: 'InterRegular'; font-size: 12px; color: #888; }
+.project-detail-date { display: flex; align-items: center; gap: 6px; }
+
+.project-hero-title {
+  font-family: 'InterBold';
+  font-size: 26px;
+  color: #002344;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.project-hero-description {
+  font-family: 'InterRegular';
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 20px 0;
+  line-height: 1.6;
+  max-width: 680px;
+}
+
+.project-hero-progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.project-hero-progress .project-progress-bar {
+  flex: 1;
+  max-width: 400px;
+  height: 8px;
+  margin-bottom: 0;
+}
+
+.project-hero-progress .project-progress-label { font-size: 12px; white-space: nowrap; }
+
+/* Členové projektu */
+.project-hero-members-section {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 18px;
+}
+
+.project-members-label {
+  font-family: 'InterSemiBold';
+  font-size: 12px;
+  color: var(--color-VSECHENTEXT);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+}
+
+.project-hero-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-member-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #EBF1FF;
+  border: 1px solid #BFD4FF;
+  border-radius: 20px;
+  padding: 6px 10px 6px 6px;
+}
+
+.project-member-chip-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'InterBold';
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.project-member-chip-avatar.has-image { color: transparent; }
+
+.project-member-chip-name {
+  font-family: 'InterSemiBold';
+  font-size: 13px;
+  color: #002344;
+}
+
+.project-member-role {
+  font-family: 'InterRegular';
+  font-size: 12px;
+  color: #888;
+}
+
+.project-member-role-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-family: 'InterSemiBold';
+  margin-left: 4px;
+}
+
+.badge-owner { background: #fff3cd; color: #856404; }
+.badge-member { background: #EBF1FF; color: #004279; }
+
+.remove-member-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #C0392B;
+  padding: 2px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.remove-member-btn:hover { opacity: 1; }
+
+/* Kód projektu */
 .project-share-row {
   display: flex;
   align-items: center;
@@ -576,29 +1384,6 @@ body {
   font-family: 'InterSemiBold';
   font-size: 14px;
   color: var(--color-VSECHENTEXT);
-}
-
-.project-share-box {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 14px 16px;
-  border: 1px solid #e7e7e7;
-  border-radius: 14px;
-  background: #fafafa;
-}
-
-.project-share-text {
-  font-family: 'InterSemiBold';
-  font-size: 13px;
-  color: #555;
-}
-
-.project-share-code-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
 }
 
 .project-share-code {
@@ -623,20 +1408,493 @@ body {
   transition: background 0.15s;
 }
 
-.copy-project-code-btn:hover {
-  background: var(--color-BUTTONY-HOVER);
+.copy-project-code-btn:hover { background: var(--color-BUTTONY-HOVER); }
+
+/* Přílohy */
+.project-attachments-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
 }
 
-.project-share-help {
-  margin: 0;
+.attach-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: var(--color-BUTTONY);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'InterSemiBold';
+  font-size: 14px;
+  transition: background 0.15s;
+}
+
+.attach-btn:hover { background: var(--color-BUTTONY-HOVER); }
+
+.attachments-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  gap: 10px;
+}
+
+.attachments-empty p {
   font-family: 'InterRegular';
-  font-size: 12px;
-  color: #777;
-  line-height: 1.5;
+  font-size: 14px;
+  color: #bbb;
+  margin: 0;
+  text-align: center;
+}
+
+.attachments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.attachment-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1.5px solid #e8f0f8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+
+.attachment-card:hover { border-color: #0088F0; box-shadow: 0 2px 8px rgba(0,100,179,0.1); }
+
+.attachment-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.attachment-icon.pdf { background: #fff0f0; }
+.attachment-icon.word { background: #EBF1FF; }
+.attachment-icon.excel { background: #e8fff0; }
+.attachment-icon.ppt { background: #fff4e8; }
+.attachment-icon.image { background: #f0e8ff; }
+.attachment-icon.other { background: #f5f5f5; }
+
+.attachment-info { flex: 1; min-width: 0; }
+
+.attachment-name {
+  font-family: 'InterSemiBold';
+  font-size: 13px;
+  color: #002344;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attachment-size {
+  font-family: 'InterRegular';
+  font-size: 11px;
+  color: #999;
+  margin: 0;
+}
+
+.attachment-delete {
+  position: absolute;
+  top: 6px; right: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 4px;
+  color: #ccc;
+  display: none;
+  transition: color 0.15s, background 0.15s;
+}
+
+.attachment-card:hover .attachment-delete { display: flex; }
+.attachment-delete:hover { color: #C0392B; background: #fff0f0; }
+
+/* Úkoly projektu */
+.project-tasks-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.project-tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.project-tasks-title {
+  font-family: 'InterBold';
+  font-size: 18px;
+  color: #002344;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-project-badge {
+  font-size: 11px;
+  background: #EBF1FF;
+  color: #0088F0;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-family: 'InterSemiBold';
 }
 
 /* ==============================
-   OVERLAY A POPUP
+   8. KALENDÁŘ
+============================== */
+.calendar-wrapper {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  padding: 24px;
+  margin-bottom: 24px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.calendar-nav-buttons { display: flex; gap: 4px; }
+
+.calendar-month-label {
+  font-family: 'InterSemiBold', sans-serif;
+  font-size: 17px;
+  color: #1a1a1a;
+}
+
+.calendar-nav-btn {
+  background: none;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #555;
+  transition: background 0.15s;
+}
+
+.calendar-nav-btn:hover { background: #f5f5f5; }
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calendar-day-name {
+  text-align: center;
+  font-family: 'InterSemiBold', sans-serif;
+  font-size: 12px;
+  color: #999;
+  padding: 8px 0;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+  transition: background 0.15s;
+}
+
+.calendar-day.empty { background: none; }
+.calendar-day.today { background: #0088F0; }
+.calendar-day.today .calendar-day-number { color: #fff; }
+.calendar-day.has-events:not(.today) { background: #f0f7ff; }
+
+.calendar-day-number {
+  font-family: 'InterRegular', sans-serif;
+  font-size: 13px;
+  color: #333;
+}
+
+.calendar-day-dots { display: flex; gap: 3px; }
+
+.calendar-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+.dot-task { background: #0088F0; }
+.dot-project { background: var(--color-BUTTONY); }
+
+.calendar-day.today .dot-task,
+.calendar-day.today .dot-project { background: rgba(255,255,255,0.8); }
+
+.calendar-events-section { margin-top: 8px; }
+
+.calendar-events-title {
+  font-family: 'InterSemiBold', sans-serif;
+  font-size: 16px;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.calendar-event-group { margin-bottom: 20px; }
+
+.calendar-event-date {
+  font-family: 'InterSemiBold', sans-serif;
+  font-size: 12px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.calendar-event-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  transition: background 0.15s;
+  max-width: 700px;
+}
+
+.calendar-event-item.event-project { border-left: 3px solid #27AE60; cursor: pointer; }
+.calendar-event-item.event-project:hover { background: #f5f5f5; }
+.calendar-event-item.event-task { border-left: 3px solid #0088F0; }
+
+.calendar-event-icon { color: #888; display: flex; align-items: center; }
+.calendar-event-body { flex: 1; }
+
+.calendar-event-title {
+  font-family: 'InterSemiBold', sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.calendar-event-title.completed { text-decoration: line-through; color: #aaa; }
+
+.calendar-event-sub {
+  font-family: 'InterRegular', sans-serif;
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.calendar-event-badge {
+  font-family: 'InterSemiBold', sans-serif;
+  font-size: 11px;
+  background: #e8f5e9;
+  color: #27AE60;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+/* ==============================
+   9. NASTAVENÍ ÚČTU
+============================== */
+.infoprofile, .passwordchange {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 700px;
+  margin-bottom: 20px;
+}
+
+.infoprofile label, .passwordchange label {
+  display: block;
+  font-family: 'InterRegular';
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+.infoprofile input, .passwordchange input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'InterRegular';
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+  cursor: text;
+}
+
+.infoprofile input:focus, .passwordchange input:focus { border-color: #0088F0; }
+
+.section-title {
+  font-family: 'InterBold';
+  font-size: 20px;
+  color: #002344;
+  margin: 0 0 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.settings-row { display: flex; gap: 20px; margin-bottom: 14px; }
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.settings-field label {
+  font-family: 'InterRegular';
+  font-size: 14px;
+  color: var(--color-kolonky);
+  margin-bottom: 8px;
+}
+
+.settings-field input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'InterRegular';
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+  cursor: text;
+}
+
+.settings-field input:focus { border-color: #0088F0; }
+
+.gdpr {
+  font-size: 12px;
+  color: #888;
+  margin-top: 8px;
+  line-height: 1.5;
+  font-family: 'InterRegular';
+}
+
+/* Avatar */
+.settings-avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.settings-avatar-preview {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-BUTTONY);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'InterBold';
+  font-size: 28px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.settings-avatar-preview.has-avatar { color: transparent; }
+
+.settings-avatar-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.settings-avatar-actions .change-avatar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #EBF1FF;
+  color: var(--color-BUTTONY);
+  border: none;
+  font-family: 'InterSemiBold';
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.change-avatar-btn {
+  background: #EBF1FF;
+  color: var(--color-BUTTONY);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: 'InterSemiBold';
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.change-avatar-btn:hover { background: #d4e5ff; }
+
+.remove-avatar-btn {
+  background: #fff0f0;
+  color: #C0392B;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: 'InterSemiBold';
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.remove-avatar-btn:hover { background: #fde0e0; }
+
+.save-changes, .save-password-changes {
+  display: flex;
+  align-items: center;
+  padding: 10px 25px;
+  background: var(--color-BUTTONY);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'InterSemiBold';
+  font-size: 14px;
+  transition: background 0.15s;
+  margin-top: 24px;
+  gap: 8px;
+}
+
+.save-changes:hover, .save-password-changes:hover { background: var(--color-BUTTONY-HOVER); }
+
+/* ==============================
+   10. OVERLAYE A POPUPY
 ============================== */
 .overlay {
   position: fixed;
@@ -662,11 +1920,12 @@ body {
   z-index: 201;
 }
 
-.popup-title { 
-  font-family: 'InterBold'; 
-  font-size: 24px; 
-  color: #002344; 
-  margin: 0 0 24px 0; }
+.popup-title {
+  font-family: 'InterBold';
+  font-size: 24px;
+  color: #002344;
+  margin: 0 0 24px 0;
+}
 
 .popup label {
   display: block;
@@ -772,257 +2031,69 @@ body {
   transition: background 0.15s;
 }
 
-.create-category:hover { 
-  background: var(--color-BUTTONY-HOVER); 
+.create-category:hover { background: var(--color-BUTTONY-HOVER); }
+
+.confirm-title {
+  font-family: 'InterBold';
+  font-size: 18px;
+  color: #002344;
+  margin: 0 0 8px 0;
 }
-.required { 
-  color: #C0392B; 
-  font-size: 13px; }
+
+.confirm-subtitle {
+  font-family: 'InterRegular';
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
 
 /* ==============================
-   NASTAVENÍ ÚČTU
+   11. TOAST NOTIFIKACE
 ============================== */
-.infoprofile, .passwordchange {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  max-width: 700px;
-  margin-bottom: 20px;
-}
-
-.infoprofile label, .passwordchange label {
-  display: block;
-  font-family: 'InterRegular';
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 8px;
-  margin-top: 16px;
-}
-
-.infoprofile input, .passwordchange input {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: 'InterRegular';
-  color: #333;
-  outline: none;
-  transition: border-color 0.2s;
-  cursor: text;
-}
-
-.infoprofile input:focus, .passwordchange input:focus { border-color: #0088F0; }
-
-.save-changes, .save-password-changes {
-  display: flex;
-  align-items: center;
-  padding: 10px 25px;
-  background: var(--color-BUTTONY);
-  color: white;
-  border: none;
-  border-radius: 8px;
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 280px;
+  max-width: 420px;
+  padding: 12px 16px;
+  border-radius: 10px;
   font-family: 'InterSemiBold';
   font-size: 14px;
-  transition: background 0.15s;
-  margin-top: 24px;
-  gap: 8px;
-}
-
-.save-changes:hover, .save-password-changes:hover { 
-  background: var(--color-BUTTONY-HOVER); 
-}
-
-.section-title {
-  font-family: 'InterBold';
-  font-size: 20px;
-  color: #002344;
-  margin: 0 0 14px 0;
+  z-index: 999;
   display: flex;
   align-items: center;
   gap: 10px;
+  border: 1.5px solid transparent;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-.settings-row { 
-  display: flex; 
-  gap: 20px; 
-  margin-bottom: 14px; 
-}
+.toast.hidden { display: none !important; }
 
-.settings-field { 
-  display: flex; 
-  flex-direction: 
-  column; flex: 1; 
-}
-
-.settings-field label {
-  font-family: 'InterRegular';
-  font-size: 14px;
-  color: var(--color-kolonky);
-  margin-bottom: 8px;
-}
-
-.settings-field input {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: 'InterRegular';
-  color: #333;
-  outline: none;
-  transition: border-color 0.2s;
-  cursor: text;
-}
-
-.settings-field input:focus { 
-  border-color: #0088F0; 
-}
-
-.gdpr {
-  font-size: 12px;
-  color: #888;
-  margin-top: 8px;
-  line-height: 1.5;
-  font-family:'InterRegular';
-}
-
-
-.settings-avatar-section {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.settings-avatar-preview {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: #0088F0;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'InterBold';
-  font-size: 28px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-
-.settings-avatar-preview.has-avatar {
-  color: transparent;
-}
-
-.settings-avatar-actions .change-avatar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 14px;
-  border-radius: 8px;
-  background: #EBF1FF;
-  color: var(--color-BUTTONY);
-  border: none;
-  font-family: 'InterSemiBold';
-  font-size: 13px;
-  cursor: pointer;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.change-avatar-btn,
-.remove-avatar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: none;
-  color: var(--color-BUTTONY);
-  font-family: 'InterSemiBold';
-  font-size: 12px;
-  cursor: pointer;
-  background: var(--color-svetlyhoverfiltry);
-}
-.change-avatar-btn {
-  background: #EBF1FF;
-  color: var(--color-BUTTONY);
-  border: none;
-}
-
-.remove-avatar-btn {
-  background: #fff0f0;
-  color: #C0392B;
-  border: none;
-}
-
-.change-avatar-btn:hover {
-  background: #EBF1FF;
-}
-
-.password-rules {
-  margin-top: -4px;
-  margin-bottom: 10px;
-}
-
-.password-rule {
-  font-family: 'InterRegular';
-  font-size: 12px;
-  margin: 4px 0;
-  transition: color 0.2s;
-}
-
-.password-rule.invalid {
-  color: #C0392B;
-}
-
-.password-rule.valid {
-  color: #1a7f4b;
-}
-
-.password-input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.password-input-wrapper input {
-  padding-right: 44px;
-}
-
-.toggle-password {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  
-  background: transparent;
-  border: none;
-  cursor: pointer;
-
+.toast-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* SVG styling */
-.eye-icon {
-  width: 18px;
-  height: 18px;
-  stroke: #888;
-  fill: none;
-  stroke-width: 2;
-}
-
-.toggle-password:hover .eye-icon {
-  stroke: #0088F0;
-}
+.toast-success { background: #eefaf1; color: #1f6b38; border-color: #7bc191; }
+.toast-error { background: #fff3f3; color: #b42318; border-color: #e49b9b; }
+.toast-info { background: #eef5ff; color: #004279; border-color: #9fc2eb; }
 
 /* ==============================
-   POZVAT ČLENA
+   12. POMOCNÉ TŘÍDY
 ============================== */
+.date-time-row {
+  display: flex;
+  gap: 8px;
+}
+
+.date-time-row input { flex: 1; }
+
 .invite-row {
   display: flex;
   align-items: center;
@@ -1091,1420 +2162,3 @@ body {
 }
 
 .member-remove-btn:hover { color: #C0392B; }
-
-/* ==============================
-   AVATARY ČLENŮ
-============================== */
-.member-avatar {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-family: 'InterBold';
-  font-size: 11px;
-  flex-shrink: 0;
-}
-
-.member-avatar-small {
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-family: 'InterBold';
-  font-size: 10px;
-  flex-shrink: 0;
-  border: 2px solid white;
-  margin-left: -6px;
-}
-
-.member-avatar-small:first-child { margin-left: 0; }
-.member-avatar-small.extra { background: #aaa; font-size: 9px; }
-
-/* ==============================
-   KARTA PROJEKTU
-============================== */
-.project-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 18px;
-}
-
-.project-card {
-  min-height: 160px;
-  justify-content: space-between;
-  background: white;
-  border-radius: 16px;
-  padding: 18px 20px;
-  border: 1px solid #e3edf7;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-}
-
-.project-card:hover {
-  border-color: #0088F0;
-  box-shadow: 0 6px 20px rgba(0,100,179,0.10);
-  transform: translateY(-1px);
-}
-
-.project-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 12px;
-  flex: 1;
-}
-
-.project-card-info { flex: 1; min-width: 0; }
-
-.project-card-category {
-  font-family: 'InterRegular';
-  font-size: 11px;
-  color: #888;
-  margin-bottom: 4px;
-  display: block;
-}
-
-.project-card-title {
-  font-family: 'InterSemiBold';
-  font-size: 16px;
-  color: #002344;
-  margin: 0 0 6px 0;
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-.project-card-description {
-  font-family: 'InterRegular';
-  font-size: 13px;
-  color: #666;
-  margin: 0;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.project-card-actions { display: flex; gap: 4px; flex-shrink: 0; }
-
-.project-card-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  transition: background 0.15s;
-}
-
-.project-card-btn:hover { background: #f0f0f0; }
-
-.project-card-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-  margin-top: auto;
-  padding-top: 12px;
-}
-
-.project-card-no-date {
-  font-size: 11px;
-  color: #bbb;
-  font-family: 'InterRegular';
-}
-
-.no-members {
-  color: #bbb;
-}
-
-.project-card-members { display: flex; align-items: center; gap: 4px; }
-
-.project-members-count {
-  font-family: 'InterRegular';
-  font-size: 12px;
-  color: #888;
-  margin-left: 6px;
-}
-
-.project-card-date {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-family: 'InterSemiBold';
-  font-size: 12px;
-  color: #C0392B;
-}
-
-.project-card-category {
-  font-family: 'InterRegular';
-  font-size: 12px;
-  color: #888;
-  margin-bottom: 6px;
-  display: inline-block;
-}
-
-.project-card-progress { 
-  margin-top: 10px; 
-}
-
-.project-card-category.no-category {
-  color: #bbb;
-}
-
-.project-card-description.no-value {
-  color: #bbb;
-  font-style: 'InterRegular';
-}
-
-.no-value {
-  color: #bbb;
-}
-
-.project-card-no-date {
-  font-size: 11px;
-  color: #bbb;
-  font-family: 'InterRegular';
-}
-
-.date-time-row {
-  display: flex;
-  gap: 8px;
-}
-
-.date-time-row input {
-  flex: 1;
-}
-
-/* ==============================
-   PROGRESS BAR
-============================== */
-.project-progress-bar {
-  width: 100%;
-  height: 6px;
-  background: #e8f0f8;
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 4px;
-}
-
-.project-progress-fill {
-  height: 100%;
-  background: #0088F0;
-  border-radius: 3px;
-  transition: width 0.3s ease;
-}
-
-.project-progress-label { font-family: 'InterRegular'; font-size: 11px; color: #888; }
-
-/* ==============================
-   DETAIL PROJEKTU — HERO
-============================== */
-.project-detail-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.project-detail-topbar-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.project-hero-card {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 12px rgba(0,46,83,0.06);
-}
-
-.project-hero-banner {
-  height: 140px;
-  background: #0088F0;
-  position: relative;
-}
-
-.project-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='40' cy='40' r='30'/%3E%3Ccircle cx='0' cy='0' r='20'/%3E%3Ccircle cx='80' cy='80' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
-.project-hero-body { padding: 24px 28px 28px 28px; }
-
-.project-hero-meta-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.project-detail-category { font-family: 'InterRegular'; font-size: 12px; color: #888; }
-.project-detail-date { display: flex; align-items: center; gap: 6px; }
-
-.project-hero-title {
-  font-family: 'InterBold';
-  font-size: 26px;
-  color: #002344;
-  margin: 0 0 10px 0;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.project-hero-description {
-  font-family: 'InterRegular';
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 20px 0;
-  line-height: 1.6;
-  max-width: 680px;
-}
-
-.project-hero-progress {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 24px;
-}
-
-.project-hero-progress .project-progress-bar {
-  flex: 1;
-  max-width: 400px;
-  height: 8px;
-  margin-bottom: 0;
-}
-
-.project-hero-progress .project-progress-label { font-size: 12px; white-space: nowrap; }
-
-.project-hero-members-section {
-  border-top: 1px solid #f0f0f0;
-  padding-top: 18px;
-}
-
-.project-members-label {
-  font-family: 'InterSemiBold';
-  font-size: 12px;
-  color: var(--color-VSECHENTEXT);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0 0 12px 0;
-}
-
-.project-member-chip-avatar.has-image {
-  color: transparent;
-}
-
-.project-hero-members {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.project-member-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #EBF1FF;
-  border: 1px solid #BFD4FF;
-  border-radius: 20px;
-  padding: 6px 10px 6px 6px;
-}
-
-.project-member-chip-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-family: 'InterBold';
-  font-size: 11px;
-  flex-shrink: 0;
-}
-
-.project-member-chip-name {
-  font-family: 'InterSemiBold';
-  font-size: 13px;
-  color: #002344;
-}
-
-.project-member-role {
-  font-family: 'InterRegular';
-  font-size: 12px;
-  color: #888;
-}
-
-.remove-member-btn {
-  border: none;
-  background: transparent;
-  color: #C0392B;
-  font-family: 'InterSemiBold';
-  font-size: 12px;
-  padding: 0 2px;
-  border-radius: 6px;
-  transition: background 0.15s;
-}
-
-.remove-member-btn:hover {
-  background: #fff0f0;
-}
-
-.project-member-role-badge {
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 10px;
-  font-family: 'InterSemiBold';
-  margin-left: 4px;
-}
-
-.badge-owner {
-  background: #fff3cd;
-  color: #856404;
-}
-
-.badge-member {
-  background: #EBF1FF;
-  color: #004279;
-}
-
-.remove-member-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #C0392B;
-  padding: 2px;
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  opacity: 0.6;
-  transition: opacity 0.15s;
-}
-
-.remove-member-btn:hover {
-  opacity: 1;
-}
-
-/* ==============================
-   PŘÍLOHY
-============================== */
-.project-attachments-section {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 20px;
-}
-
-.attach-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 18px;
-  background: var(--color-BUTTONY);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-family: 'InterSemiBold';
-  font-size: 14px;
-  transition: background 0.15s;
-}
-
-.attach-btn:hover { background: #EBF1FF; }
-
-.attachments-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 32px;
-  gap: 10px;
-}
-
-.attachments-empty p {
-  font-family: 'InterRegular';
-  font-size: 14px;
-  color: #bbb;
-  margin: 0;
-  text-align: center;
-}
-
-.attachments-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-}
-
-.attachment-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #f8fafc;
-  border: 1.5px solid #e8f0f8;
-  border-radius: 10px;
-  padding: 12px 14px;
-  cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  position: relative;
-}
-
-.attachment-card:hover { border-color: #0088F0; box-shadow: 0 2px 8px rgba(0,100,179,0.1); }
-
-.attachment-icon {
-  width: 36px; height: 36px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 18px;
-}
-
-.attachment-icon.pdf { background: #fff0f0; }
-.attachment-icon.word { background: #EBF1FF; }
-.attachment-icon.excel { background: #e8fff0; }
-.attachment-icon.ppt { background: #fff4e8; }
-.attachment-icon.image { background: #f0e8ff; }
-.attachment-icon.other { background: #f5f5f5; }
-
-.attachment-info { flex: 1; min-width: 0; }
-
-.attachment-name {
-  font-family: 'InterSemiBold';
-  font-size: 13px;
-  color: #002344;
-  margin: 0 0 3px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.attachment-size {
-  font-family: 'InterRegular';
-  font-size: 11px;
-  color: #999;
-  margin: 0;
-}
-
-.attachment-delete {
-  position: absolute;
-  top: 6px; right: 6px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 3px;
-  border-radius: 4px;
-  color: #ccc;
-  display: none;
-  transition: color 0.15s, background 0.15s;
-}
-
-.attachment-card:hover .attachment-delete { display: flex; }
-.attachment-delete:hover { color: #C0392B; background: #fff0f0; }
-
-.detail-assignee-avatar.has-image {
-  color: transparent;
-}
-
-.task-date.overdue {
-  color: #C0392B;
-  font-family: 'InterSemiBold';
-}
-
-
-.confirm-title {
-  font-family: 'InterBold';
-  font-size: 18px;
-  color: #002344;
-  margin: 0 0 8px 0;
-}
-
-.confirm-subtitle {
-  font-family: 'InterRegular';
-  font-size: 14px;
-  color: #888;
-  margin: 0;
-}
-
-
-
-/* ==============================
-   SEKCE ÚKOLŮ PROJEKTU
-============================== */
-.project-action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 14px;
-  border-radius: 10px;
-  border: none;
-  font-family: 'InterSemiBold';
-  font-size: 13px;
-  transition: background 0.15s;
-}
-
-.project-action-btn.edit { background: #EBF1FF; color: #0088F0; }
-.project-action-btn.edit:hover { background: #d0e6ff; }
-.project-action-btn.delete { background: #fff0f0; color: #C0392B; }
-.project-action-btn.delete:hover { background: #ffe0e0; }
-
-.project-tasks-section {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-}
-
-.project-tasks-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.project-tasks-title {
-  font-family: 'InterBold';
-  font-size: 18px;
-  color: #002344;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.task-project-badge {
-  font-size: 11px;
-  background: #EBF1FF;
-  color: #0088F0;
-  padding: 2px 7px;
-  border-radius: 10px;
-  font-family: 'InterSemiBold';
-}
-
-.task-section-divider {
-  display: flex;
-  align-items: center;
-  margin: 16px 0 8px 0;
-  gap: 10px;
-}
-
-.task-section-divider::before,
-.task-section-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: #e0e0e0;
-}
-
-.task-section-divider-label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  color: #999;
-  font-family: 'InterSemiBold';
-  white-space: nowrap;
-}
-
-.back-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-family: 'InterRegular';
-  font-size: 14px;
-  color: #0088F0;
-  padding: 6px 0;
-  transition: color 0.15s;
-}
-
-.back-btn:hover { color: #004279; }
-
-/* ==============================
-   TASK ITEM
-============================== */
-.task-item {
-  background: white;
-  border-radius: 10px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  border: 1.5px solid transparent;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.task-item:hover { 
-  border-color: #0088F0; 
-}
-
-.task-item.active-detail { 
-  border-color: #0088F0; 
-}
-
-/* Úkoly v detailu projektu mají vždy viditelné ohraničení */
-#projectTaskList .task-item {
-  border: 1.5px solid #e0ecf8;
-  box-shadow: 0 1px 4px rgba(0, 100, 179, 0.07);
-}
-
-#projectTaskList .task-item:hover {
-  border-color: #0088F0;
-  box-shadow: 0 2px 8px rgba(0, 100, 179, 0.13);
-}
-
-.task-checkbox {
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 2px;
-}
-
-.task-checkbox:hover { border-color: #0088F0; }
-.task-checkbox.completed { background: #0088F0; border-color: #0088F0; }
-
-.task-body { flex-grow: 1; }
-
-.task-title { font-family: 'InterSemiBold'; font-size: 14px; color: #002344; margin: 0 0 4px 0; }
-.task-title.completed { text-decoration: line-through; color: #aaa; }
-
-.task-description { font-family: 'InterRegular'; font-size: 13px; color: #888; margin: 0 0 6px 0; }
-
-.task-meta { display: flex; align-items: center; gap: 12px; }
-
-.task-category { display: flex; align-items: center; gap: 5px; font-family: 'InterRegular'; font-size: 12px; color: #555; }
-.task-date { display: flex; align-items: center; gap: 5px; font-family: 'InterRegular'; font-size: 12px; color: #888; }
-
-.task-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  align-self: flex-start;
-  margin-top: 2px;
-}
-
-.task-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 6px;
-  transition: background 0.15s;
-  display: flex;
-  align-items: center;
-}
-
-.task-btn:hover { background: #f0f0f0; }
-.task-btn.star svg { stroke: #f0c040; }
-.task-btn.star.active svg { fill: #f0c040; }
-.task-btn.delete svg { stroke: #C0392B; }
-
-/* ==============================
-   TOAST
-============================== */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 280px;
-  max-width: 420px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-family: 'InterSemiBold';
-  font-size: 14px;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 1.5px solid transparent;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-
-.toast.hidden {
-  display: none !important;
-}
-
-.toast-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.toast-success {
-  background: #eefaf1;
-  color: #1f6b38;
-  border-color: #7bc191;
-}
-
-.toast-error {
-  background: #fff3f3;
-  color: #b42318;
-  border-color: #e49b9b;
-}
-
-.toast-info {
-  background: #eef5ff;
-  color: #004279;
-  border-color: #9fc2eb;
-}
-
-/* ==============================
-   BOČNÍ PANEL PRO ÚKOLY
-============================== */
-.task-detail-panel {
-  position: fixed;
-  top: 0; right: 0;
-  width: 420px;
-  height: 100vh;
-  background: white;
-  box-shadow: -4px 0 24px rgba(0,0,0,0.09);
-  z-index: 150;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  transform: translateX(100%);
-  transition: transform 0.25s ease;
-}
-
-.task-detail-panel.panel-open { 
-  transform: translateX(0); 
-}
-
-.task-detail-close {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #888;
-  padding: 4px;
-  border-radius: 6px;
-}
-
-.task-detail-close:hover { 
-  background: #f0f0f0; 
-}
-
-.task-detail-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 24px 16px 24px;
-  border-bottom: 1px solid #efefef;
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 1;
-}
-
-.task-detail-title { 
-  font-family: 'InterBold'; 
-  font-size: 18px; color: #002344;
-  margin: 0; 
-}
-
-.task-detail-body {
-  display: flex;
-  flex-direction: column;
-  color: var(--color-VSECHENTEXT);
-  gap: 6px;
-  padding: 24px;
-}
-
-.task-detail-body label {
-  font-family: 'InterRegular';
-  font-size: 13px;
-  color: var(--color-VSECHENTEXT);
-  margin-top: 10px;
-}
-
-.task-detail-body input,
-.task-detail-body textarea,
-.task-detail-body select {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 13px;
-  font-family: 'InterRegular';
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.task-detail-body input:focus,
-.task-detail-body textarea:focus,
-.task-detail-body select:focus { border-color: #0088F0; }
-
-.task-detail-body .save-changes {
-  width: 100%;
-  padding: 14px;
-  font-size: 15px;
-  margin-top: 20px;
-  justify-content: center;
-  border-radius: 10px;
-}
-
-
-
-.secondary-project-btn {
-  background: white;
-  color: #0088F0;
-  border: 1px solid #d9e6f2;
-}
-
-.secondary-project-btn:hover {
-  background: #EBF1FF;
-}
-
-.content.is-loading {
-  opacity: 0.6;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-}
-
-.project-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-left: auto;
-}
-
-.detail-assignees-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.detail-assignee-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'InterRegular';
-  font-size: 14px;
-  color: #333;
-  cursor: pointer;
-}
-
-.detail-assignee-item input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  margin: 0;
-}
-
-.detail-assignee-avatar,
-.task-assignee-avatar {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-family: 'InterBold';
-  font-size: 10px;
-  flex-shrink: 0;
-}
-
-.detail-assignee-name,
-.task-assignee-name {
-  font-family: 'InterRegular';
-  font-size: 13px;
-  color: #002344;
-}
-
-.task-assignees-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.task-assignee-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 8px 4px 4px;
-  background: #EBF1FF;
-  border: 1px solid #d8e8f8;
-  border-radius: 999px;
-}
-/* ==============================
-   VÝSLEDKY VYHLEDÁVÁNÍ
-============================== */
-
-.search-results {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  width: 100%;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-  border: 1px solid #e8e8e8;
-  z-index: 500;
-  max-height: 380px;
-  overflow-y: auto;
-  padding: 6px 0;
-}
-
-.search-section {
-  padding: 0;
-}
-
-.search-section-label {
-  font-family: 'InterSemiBold';
-  font-size: 11px;
-  color: #aaa;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0;
-  padding: 8px 14px 4px;
-}
-
-.search-result-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  cursor: pointer;
-  transition: background 0.12s;
-}
-
-.search-result-item:hover {
-  background: #EBF1FF;
-}
-
-.search-result-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.task-icon {
-  background: #EBF1FF;
-  color: #0088F0;
-}
-
-.project-icon {
-  background: #f0ebff;
-  color: #6c3fc4;
-}
-
-.search-result-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.search-result-title {
-  font-family: 'InterSemiBold';
-  font-size: 13px;
-  color: #002344;
-  margin: 0 0 2px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.search-result-title mark {
-  background: #fff3b0;
-  color: inherit;
-  border-radius: 2px;
-  padding: 0 1px;
-}
-
-.search-result-sub {
-  font-family: 'InterRegular';
-  font-size: 11px;
-  color: #999;
-  margin: 0;
-}
-
-.search-result-badge {
-  font-family: 'InterSemiBold';
-  font-size: 10px;
-  padding: 2px 7px;
-  border-radius: 10px;
-  flex-shrink: 0;
-}
-
-.search-result-badge.done {
-  background: #e8f8ef;
-  color: #1a7f4b;
-}
-
-.search-empty {
-  font-family: 'InterRegular';
-  font-size: 13px;
-  color: #aaa;
-  padding: 16px 14px;
-  text-align: center;
-}
-
-.calendar-wrapper {
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid #eee;
-  padding: 20px;
-  margin-bottom: 24px;
-  max-width: 480px;
-}
-
-.calendar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.calendar-nav-buttons {
-  display: flex;
-  gap: 4px;
-}
-
-.calendar-month-label {
-  font-family: 'InterSemiBold', sans-serif;
-  font-size: 15px;
-  color: #1a1a1a;
-}
-
-.calendar-nav-btn {
-  background: none;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 4px 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  color: #555;
-  transition: background 0.15s;
-}
-
-.calendar-nav-btn:hover {
-  background: #f5f5f5;
-}
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
-}
-
-.calendar-day-name {
-  text-align: center;
-  font-family: 'InterSemiBold', sans-serif;
-  font-size: 11px;
-  color: #999;
-  padding: 6px 0;
-}
-
-.calendar-day {
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  padding: 2px;
-  gap: 2px;
-}
-
-.calendar-day-number {
-  font-family: 'InterRegular', sans-serif;
-  font-size: 11px;
-  color: #333;
-}
-
-.calendar-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-}
-
-.calendar-wrapper {
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid #eee;
-  padding: 24px;
-  margin-bottom: 24px;
-  width: 100%;
-  max-width: 700px;
-}
-
-.calendar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.calendar-nav-buttons {
-  display: flex;
-  gap: 4px;
-}
-
-.calendar-month-label {
-  font-family: 'InterSemiBold', sans-serif;
-  font-size: 17px;
-  color: #1a1a1a;
-}
-
-.calendar-nav-btn {
-  background: none;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 6px 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  color: #555;
-  transition: background 0.15s;
-}
-
-.calendar-nav-btn:hover {
-  background: #f5f5f5;
-}
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
-}
-
-.calendar-day-name {
-  text-align: center;
-  font-family: 'InterSemiBold', sans-serif;
-  font-size: 12px;
-  color: #999;
-  padding: 8px 0;
-}
-
-.calendar-day {
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  padding: 4px;
-  gap: 4px;
-  transition: background 0.15s;
-}
-
-.calendar-day.empty {
-  background: none;
-}
-
-.calendar-day.today {
-  background: #0088F0;
-}
-
-.calendar-day.today .calendar-day-number {
-  color: #fff;
-}
-
-.calendar-day.has-events:not(.today) {
-  background: #f0f7ff;
-}
-
-.calendar-day-number {
-  font-family: 'InterRegular', sans-serif;
-  font-size: 13px;
-  color: #333;
-}
-
-.calendar-day-dots {
-  display: flex;
-  gap: 3px;
-}
-
-.calendar-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-}
-
-.dot-task { background: #0088F0; }
-.dot-project { background: var(--color-BUTTONY); }
-
-.calendar-day.today .dot-task,
-.calendar-day.today .dot-project {
-  background: rgba(255,255,255,0.8);
-}
-
-.calendar-events-section {
-  margin-top: 8px;
-}
-
-.calendar-events-title {
-  font-family: 'InterSemiBold', sans-serif;
-  font-size: 16px;
-  color: #1a1a1a;
-  margin-bottom: 16px;
-}
-
-.calendar-event-group {
-  margin-bottom: 20px;
-}
-
-.calendar-event-date {
-  font-family: 'InterSemiBold', sans-serif;
-  font-size: 12px;
-  color: #999;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-
-.calendar-event-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  margin-bottom: 6px;
-  transition: background 0.15s;
-  max-width: 700px;
-}
-
-.calendar-event-item.event-project {
-  border-left: 3px solid #27AE60;
-  cursor: pointer;
-}
-
-.calendar-event-item.event-project:hover {
-  background: #f5f5f5;
-}
-
-.calendar-event-item.event-task {
-  border-left: 3px solid #0088F0;
-}
-
-.calendar-event-icon {
-  color: #888;
-  display: flex;
-  align-items: center;
-}
-
-.calendar-event-body {
-  flex: 1;
-}
-
-.calendar-event-title {
-  font-family: 'InterSemiBold', sans-serif;
-  font-size: 14px;
-  color: #1a1a1a;
-}
-
-.calendar-event-title.completed {
-  text-decoration: line-through;
-  color: #aaa;
-}
-
-.calendar-event-sub {
-  font-family: 'InterRegular', sans-serif;
-  font-size: 12px;
-  color: #999;
-  margin-top: 2px;
-}
-
-.calendar-event-badge {
-  font-family: 'InterSemiBold', sans-serif;
-  font-size: 11px;
-  background: #e8f5e9;
-  color: #27AE60;
-  padding: 2px 8px;
-  border-radius: 20px;
-}
-
-/* ==============================
-   GLOBÁLNÍ
-============================== */
-button, input, textarea, select {
-  -webkit-app-region: no-drag;
-  cursor: pointer;
-}
-
-.remove-avatar-btn {
-  background: #fff0f0;
-  color: #C0392B;
-  border: 1.5px solid #f5c6c6;
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-family: 'InterSemiBold', sans-serif;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.remove-avatar-btn:hover {
-  background: #fde0e0;
-}
-
-/* ==============================
-   ÚPRAVA KATEGORIE
-============================== */
-.category-actions {
-  display: none;
-  position: absolute;
-  right: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  align-items: center;
-  gap: 2px;
-}
-
-.sidebar-category-task:hover .category-actions,
-.sidebar-category-project:hover .category-actions {
-  display: flex;
-}
-
-.category-edit-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 6px;
-  color: #0088F0;
-  display: flex;
-  align-items: center;
-}
-
-.category-edit-btn:hover {
-  background: #EBF1FF;
-}
-
-.sidebar-category-task.active .category-edit-btn,
-.sidebar-category-project.active .category-edit-btn {
-  color: white;
-}
-
-.sidebar-category-task.active .category-edit-btn:hover,
-.sidebar-category-project.active .category-edit-btn:hover {
-  background: rgba(255,255,255,0.2);
-}

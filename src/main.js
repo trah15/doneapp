@@ -28,6 +28,7 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js')
     }
   });
+  mainWindow.maximize();
 
   mainWindow.loadFile('src/index.html');;
 }
