@@ -17,19 +17,16 @@ function showPage(pageId, btnId) {
 
 function showAuthPage(pageId) {
   document.getElementById('mainApp').classList.add('hidden');
-
   document.getElementById('page-login').classList.add('hidden');
   document.getElementById('page-register').classList.add('hidden');
   document.getElementById('page-email-confirm').classList.add('hidden');
   document.getElementById('page-onboarding').classList.add('hidden');
   document.getElementById('page-reset-password').classList.add('hidden');
-
   document.getElementById(pageId).classList.remove('hidden');
 }
 
 function showMainApp() {
   document.getElementById('mainApp').classList.remove('hidden');
-
   document.getElementById('page-login').classList.add('hidden');
   document.getElementById('page-register').classList.add('hidden');
   document.getElementById('page-email-confirm').classList.add('hidden');
@@ -52,13 +49,12 @@ document.getElementById('btn-vsechnyukoly').addEventListener('click', async () =
   currentCategoryId = null;
   currentCategoryName = null;
   currentCategoryEmoji = null;
-
   setPageLoading(true);
-  showPage('page-vsechny-ukoly', 'btn-vsechnyukoly'); 
+  showPage('page-vsechny-ukoly', 'btn-vsechnyukoly');
   document.querySelector('#page-vsechny-ukoly .page-title').textContent = 'Všechny úkoly';
   document.querySelectorAll('#page-vsechny-ukoly .filter-btn').forEach(b => b.classList.remove('active'));
   document.querySelector('#page-vsechny-ukoly .filter-btn').classList.add('active');
-  await showActiveTasks(); // ← až potom
+  await showActiveTasks();
   await updateFilterCounts();
   setPageLoading(false);
 });
@@ -66,15 +62,12 @@ document.getElementById('btn-vsechnyukoly').addEventListener('click', async () =
 document.getElementById('btn-vsechny-projekty').addEventListener('click', async () => {
   closeTaskDetail();
   setPageLoading(true);
-
   currentProjectCategoryId = null;
   currentProjectCategoryName = null;
   currentProjectCategoryEmoji = null;
-
   document.querySelectorAll('.sidebar-category-project').forEach(b => b.classList.remove('active'));
   document.querySelector('#page-projekty .page-title').textContent = 'Všechny projekty';
   document.querySelector('#page-projekty .page-subtitle').textContent = 'Všechny projekty na jednom místě';
-
   await loadProjects();
   showPage('page-projekty', 'btn-vsechny-projekty');
   setPageLoading(false);
@@ -82,15 +75,12 @@ document.getElementById('btn-vsechny-projekty').addEventListener('click', async 
 
 document.getElementById('backToProjects').addEventListener('click', async () => {
   setPageLoading(true);
-
   currentProjectCategoryId = null;
   currentProjectCategoryName = null;
   currentProjectCategoryEmoji = null;
-
   document.querySelectorAll('.sidebar-category-project').forEach(b => b.classList.remove('active'));
   document.querySelector('#page-projekty .page-title').textContent = 'Všechny projekty';
   document.querySelector('#page-projekty .page-subtitle').textContent = 'Všechny projekty na jednom místě';
-
   await loadProjects();
   showPage('page-projekty', 'btn-vsechny-projekty');
   setPageLoading(false);
@@ -101,27 +91,22 @@ document.getElementById('resetBackToLogin').addEventListener('click', (e) => {
   showAuthPage('page-login');
 });
 
+
 // ==============================
 // 2. AUTH — přihlášení a registrace
 // ==============================
 
-// REGISTRACE — pošle magic link
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const email = e.target.querySelector('input[type="email"]').value.trim();
   const password = document.getElementById('registerPassword').value;
-
   const passwordOk = updatePasswordRules(password);
-
   if (!passwordOk) {
     document.getElementById('passwordRules').classList.remove('hidden');
-    showToast('Heslo nesplňuje požadavky','error');
+    showToast('Heslo nesplňuje požadavky', 'error');
     return;
   }
-
   const result = await window.api.register({ email, password });
-
   if (result.success) {
     document.getElementById('confirm-email').textContent = email;
     showAuthPage('page-email-confirm');
@@ -130,40 +115,29 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   }
 });
 
-// PŘIHLÁŠENÍ — magic link
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const email = e.target.querySelector('input[type="email"]').value.trim();
   const password = document.getElementById('loginPassword').value;
-
   const result = await window.api.login({ email, password });
-
   if (!result.success) {
     showToast('Chyba přihlášení: ' + result.error, 'error');
     return;
   }
-
   const session = result.data.session;
   const profile = await window.api.getProfile(session.user.id);
-
   if (!profile || !profile.username || profile.username.trim() === '') {
-    // Účet existuje ale nemá username — velmi vzácné, může nastat jen při chybě
     showToast('Dokončete nastavení profilu', 'info');
     showAuthPage('page-onboarding');
     return;
   }
-
-  // Přihlášení proběhlo — jdi přímo do aplikace bez onboarding checku
   showMainApp();
   updateSidebarProfile(profile, session);
   showPage('page-dnes', 'btn-dnes');
-  
   setPageLoading(true);
   await loadEverything();
   await updateFilterCounts();
   setPageLoading(false);
-
   showToast('Přihlášení proběhlo úspěšně');
 });
 
@@ -172,10 +146,8 @@ document.querySelectorAll('.toggle-password').forEach(button => {
     const targetId = button.dataset.target;
     const input = document.getElementById(targetId);
     if (!input) return;
-
     const eyeOpen = button.querySelector('.eye-open');
     const eyeClosed = button.querySelector('.eye-closed');
-
     if (input.type === 'password') {
       input.type = 'text';
       eyeOpen.classList.add('hidden');
@@ -188,19 +160,16 @@ document.querySelectorAll('.toggle-password').forEach(button => {
   });
 });
 
-// Přepnutí z Login na Registraci
 document.getElementById('link-to-reg').addEventListener('click', (e) => {
   e.preventDefault();
   showAuthPage('page-register');
 });
 
-// Přepnutí z Registrace zpět na Login
 document.getElementById('link-to-login').addEventListener('click', (e) => {
   e.preventDefault();
   showAuthPage('page-login');
 });
 
-// Zpět na login z potvrzení mailu
 document.getElementById('backToLogin').addEventListener('click', (e) => {
   e.preventDefault();
   showAuthPage('page-login');
@@ -221,7 +190,6 @@ document.getElementById('forgot-password-link').addEventListener('click', async 
   }
 });
 
-// Deep link callback — zpracuje token z magic linku
 document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('page-login').classList.add('hidden');
   try {
@@ -267,30 +235,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (session) {
       if (!session.user.email_confirmed_at) {
-        // Email ještě nepotvrzený — čekáme na callback
         showAuthPage('page-email-confirm');
         return;
       }
-      
       const profile = await window.api.getProfile(session.user.id);
-      
       if (!profile || !profile.username || profile.username.trim() === '') {
-        // Profil neexistuje nebo nemá username → onboarding
         showAuthPage('page-onboarding');
         return;
       }
-      
       await finishAuth(session);
     } else {
       showAuthPage('page-login');
     }
-
   } catch (err) {
     console.error(err);
     showAuthPage('page-login');
   }
 });
-
 
 function validatePassword(password) {
   return {
@@ -302,21 +263,16 @@ function validatePassword(password) {
 
 function updatePasswordRules(password) {
   const rules = validatePassword(password);
-
   document.getElementById('rule-length').classList.toggle('valid', rules.length);
   document.getElementById('rule-length').classList.toggle('invalid', !rules.length);
-
   document.getElementById('rule-number').classList.toggle('valid', rules.number);
   document.getElementById('rule-number').classList.toggle('invalid', !rules.number);
-
   document.getElementById('rule-special').classList.toggle('valid', rules.special);
   document.getElementById('rule-special').classList.toggle('invalid', !rules.special);
-
   return rules.length && rules.number && rules.special;
 }
 
 const registerPasswordInput = document.getElementById('registerPassword');
-
 if (registerPasswordInput) {
   registerPasswordInput.addEventListener('input', (e) => {
     const rulesBox = document.getElementById('passwordRules');
@@ -328,6 +284,8 @@ if (registerPasswordInput) {
     updatePasswordRules(e.target.value);
   });
 }
+
+
 // ==============================
 // 3. SIDEBAR — dropdown a nastavení
 // ==============================
@@ -401,7 +359,6 @@ document.querySelectorAll('#overlay-taskcategory .emoji-btn').forEach(btn => {
   });
 });
 
-// Projektové kategorie
 const overlayProjectCategory = document.getElementById('overlay-projectcategory');
 
 document.getElementById('btn-create-projectcategory').addEventListener('click', () => {
@@ -454,7 +411,6 @@ document.getElementById('createProjectCategory').addEventListener('click', async
 
   const emoji = selectedEmoji.textContent;
   await window.api.addProjectCategory({ name, emoji });
-
   overlayProjectCategory.classList.add('hidden');
   nameInput.value = '';
   overlayProjectCategory.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
@@ -472,18 +428,14 @@ document.querySelectorAll('.add-task-btn').forEach(btn => {
     } else {
       delete overlayNewTask.dataset.projectId;
     }
-
-    // Nejdřív nastav viditelnost wrapperu PŘED otevřením overlaye
     const wrapper = document.getElementById('categoryTaskWrapper');
     if (activePage.id === 'page-projekt-detail') {
       wrapper.classList.add('hidden');
     } else {
       wrapper.classList.remove('hidden');
     }
-
     overlayNewTask.classList.remove('hidden');
     await loadCategoriesIntoDropdown();
-
     const select = document.getElementById('categoryTask');
     if (activePage.id !== 'page-projekt-detail' && currentCategoryId) {
       select.value = currentCategoryId;
@@ -528,7 +480,6 @@ function sortTasksByImportance(tasks) {
 async function updateFilterCounts() {
   const activePage = document.querySelector('.page:not(.hidden)');
   if (!activePage) return;
-
   const filterBtns = activePage.querySelectorAll('.filter-btn');
   if (filterBtns.length < 2) return;
 
@@ -544,7 +495,6 @@ async function updateFilterCounts() {
 
   const activeCount = tasks.filter(t => t.status === 0).length;
   const doneCount = tasks.filter(t => t.status === 1).length;
-
   filterBtns[0].textContent = `Aktivní (${activeCount})`;
   filterBtns[1].textContent = `Dokončené (${doneCount})`;
 }
@@ -566,7 +516,6 @@ async function refreshCurrentView() {
   const showingCompleted = activeFilter && activeFilter.textContent.includes('Dokončené');
 
   if (activePage.id === 'page-dnes') {
-    const activeFilter = activePage.querySelector('.filter-btn.active');
     if (activeFilter && activeFilter.textContent.includes('Dokončené')) {
       await showCompletedTasks();
     } else {
@@ -607,10 +556,8 @@ async function refreshCurrentView() {
   } else {
     const standaloneFiltered = filtered.filter(t => !t.project_id);
     const inProjectFiltered = filtered.filter(t => t.project_id);
-
     taskList.innerHTML = '';
     standaloneFiltered.forEach(task => taskList.appendChild(createTaskElement(task)));
-
     if (inProjectFiltered.length > 0) {
       const divider = document.createElement('div');
       divider.className = 'task-section-divider';
@@ -633,7 +580,6 @@ function createTaskElement(task) {
     <div class="task-body">
       <p class="task-title ${task.status === 1 ? 'completed' : ''}">${task.title}</p>
       <p class="task-description ${!task.description ? 'no-value' : ''}">${task.description || 'Bez popisku'}</p>
-
       <div class="task-meta">
         <span class="task-category">
           <span class="task-category-emoji">${task.category_emoji || ''}</span>
@@ -649,7 +595,6 @@ function createTaskElement(task) {
           ${task.due_date ? formatDateTime(task.due_date, task.due_time) : 'Bez termínu'}
         </span>
       </div>
-
       ${task.assignees && task.assignees.length > 0 ? `
         <div class="task-assignees-preview">
           ${task.assignees.map((assignee, index) => `
@@ -663,7 +608,6 @@ function createTaskElement(task) {
         </div>
       ` : ''}
     </div>
-
     <div class="task-actions">
       <button class="task-btn star ${task.is_important ? 'active' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="${task.is_important ? '#f0c040' : 'none'}" stroke="#f0c040" stroke-width="2">
@@ -692,7 +636,7 @@ function createTaskElement(task) {
     const newImportant = !task.is_important;
     await window.api.markImportant({ id: task.id, is_important: newImportant });
     task.is_important = newImportant;
-    showToast(newImportant ? 'Úkol byl označen jako důležitý' : 'Úkol byl odebrán z důležitých','info' );
+    showToast(newImportant ? 'Úkol byl označen jako důležitý' : 'Úkol byl odebrán z důležitých', 'info');
     await refreshCurrentView();
   });
 
@@ -741,17 +685,14 @@ async function loadAllTasks() {
   const tasks = await window.api.getAllTasks();
   const taskList = document.querySelector('#page-vsechny-ukoly .task-list');
   if (!taskList) return;
-
   if (tasks.length === 0) {
     taskList.innerHTML = '<div class="empty-state"><p>Zatím žádné úkoly. Vytvořte svůj první úkol!</p></div>';
   } else {
     taskList.innerHTML = '';
     sortTasksByImportance(tasks).forEach(task => taskList.appendChild(createTaskElement(task)));
   }
-
   await updateFilterCounts();
 }
-
 
 function showConfirm(title, subtitle) {
   return new Promise((resolve) => {
@@ -802,18 +743,16 @@ async function showActiveTasks() {
     taskList.innerHTML = '<div class="empty-state"><p>Žádné aktivní úkoly.</p></div>';
   } else {
     const standaloneActive = activeTasks.filter(t => !t.project_id);
-const inProjectActive = activeTasks.filter(t => t.project_id);
-
-taskList.innerHTML = '';
-standaloneActive.forEach(task => taskList.appendChild(createTaskElement(task)));
-
-if (inProjectActive.length > 0) {
-  const divider = document.createElement('div');
-  divider.className = 'task-section-divider';
-  divider.innerHTML = `<span class="task-section-divider-label"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Úkoly v projektech</span>`;
-  taskList.appendChild(divider);
-  inProjectActive.forEach(task => taskList.appendChild(createTaskElement(task)));
-}
+    const inProjectActive = activeTasks.filter(t => t.project_id);
+    taskList.innerHTML = '';
+    standaloneActive.forEach(task => taskList.appendChild(createTaskElement(task)));
+    if (inProjectActive.length > 0) {
+      const divider = document.createElement('div');
+      divider.className = 'task-section-divider';
+      divider.innerHTML = `<span class="task-section-divider-label"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Úkoly v projektech</span>`;
+      taskList.appendChild(divider);
+      inProjectActive.forEach(task => taskList.appendChild(createTaskElement(task)));
+    }
   }
 }
 
@@ -839,11 +778,9 @@ async function showCompletedTasks() {
     taskList.innerHTML = '<div class="empty-state"><p>Žádné dokončené úkoly.</p></div>';
   } else {
     const standaloneCompleted = completedTasks.filter(t => !t.project_id);
-const inProjectCompleted = completedTasks.filter(t => t.project_id);
-
+    const inProjectCompleted = completedTasks.filter(t => t.project_id);
     taskList.innerHTML = '';
     standaloneCompleted.forEach(task => taskList.appendChild(createTaskElement(task)));
-
     if (inProjectCompleted.length > 0) {
       const divider = document.createElement('div');
       divider.className = 'task-section-divider';
@@ -901,19 +838,10 @@ document.getElementById('createTask').addEventListener('click', async () => {
   if (hasError) return;
 
   const description = document.querySelector('#overlay-newukol textarea').value.trim();
-  const category_id = document.getElementById('categoryTask').value
-    ? document.getElementById('categoryTask').value
-    : null;
+  const category_id = document.getElementById('categoryTask').value || null;
   const project_id = overlayNewTask.dataset.projectId || null;
 
-  const createdTask = await window.api.addTask({
-    title,
-    description,
-    due_date,
-    due_time,
-    category_id,
-    project_id
-  });
+  const createdTask = await window.api.addTask({ title, description, due_date, due_time, category_id, project_id });
 
   if (!createdTask) {
     showToast('Úkol se nepodařilo vytvořit', 'error');
@@ -939,7 +867,6 @@ document.getElementById('createTask').addEventListener('click', async () => {
 async function loadTaskCategories() {
   const categories = await window.api.getAllTaskCategories();
   const createBtn = document.getElementById('btn-create-taskcategory');
-
   document.querySelectorAll('.sidebar-category-task').forEach(el => el.remove());
 
   categories.forEach(category => {
@@ -1002,7 +929,6 @@ async function loadTaskCategories() {
 async function loadProjectCategories() {
   const categories = await window.api.getAllProjectCategories();
   const createBtn = document.getElementById('btn-create-projectcategory');
-
   document.querySelectorAll('.sidebar-category-project').forEach(el => el.remove());
 
   categories.forEach(category => {
@@ -1057,16 +983,13 @@ function openEditCategoryOverlay(category, type) {
   const overlay = document.getElementById('overlay-editcategory');
   const nameInput = document.getElementById('editCategoryName');
   const title = document.getElementById('editCategoryTitle');
-
   title.textContent = type === 'task' ? 'Upravit kategorii úkolů' : 'Upravit kategorii projektů';
   nameInput.value = category.name;
   overlay.dataset.categoryId = category.id;
   overlay.dataset.categoryType = type;
-
   overlay.querySelectorAll('.emoji-btn').forEach(b => {
     b.classList.toggle('selected', b.textContent.trim() === category.emoji.trim());
   });
-
   overlay.classList.remove('hidden');
 }
 
@@ -1100,11 +1023,9 @@ async function loadProjectsByCategory(category_id, name, emoji) {
         window.api.getProjectMembers(project.id),
         window.api.getTasksByProject(project.id)
       ]);
-
       const totalTasks = tasks.length;
       const doneTasks = tasks.filter(t => t.status === 1).length;
       const progress = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
-
       return { project, members, progress, totalTasks };
     })
   );
@@ -1184,7 +1105,6 @@ document.getElementById('createCategory').addEventListener('click', async () => 
 
   const emoji = selectedEmoji.textContent;
   await window.api.addTaskCategory({ name, emoji });
-
   overlayTaskCategory.classList.add('hidden');
   nameInput.value = '';
   document.querySelectorAll('#overlay-taskcategory .emoji-btn').forEach(b => b.classList.remove('selected'));
@@ -1205,7 +1125,6 @@ function showToast(message, type = 'success') {
   const toastIcon = document.getElementById('toast-icon');
 
   toastMsg.textContent = message;
-
   toast.classList.remove('toast-success', 'toast-error', 'toast-info');
   toast.classList.add(`toast-${type}`);
 
@@ -1233,7 +1152,6 @@ function showToast(message, type = 'success') {
   }
 
   toast.classList.remove('hidden');
-
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => {
     toast.classList.add('hidden');
@@ -1251,7 +1169,6 @@ let currentTaskProjectMembers = [];
 async function renderTaskAssignees(task) {
   const section = document.getElementById('taskAssigneesSection');
   const list = document.getElementById('detailAssigneesList');
-
   if (!section || !list) return;
 
   list.innerHTML = '';
@@ -1278,18 +1195,16 @@ async function renderTaskAssignees(task) {
   members.forEach((member, index) => {
     const row = document.createElement('label');
     row.className = 'detail-assignee-item';
-
     row.innerHTML = `
       <input type="checkbox" value="${member.user_id}" ${assignedUserIds.has(member.user_id) ? 'checked' : ''} />
-      <div class="detail-assignee-avatar ${member.avatar_url ? 'has-image' : ''}" 
-        style="${member.avatar_url 
-          ? `background-image:url('${member.avatar_url}');background-size:cover;background-position:center;` 
+      <div class="detail-assignee-avatar ${member.avatar_url ? 'has-image' : ''}"
+        style="${member.avatar_url
+          ? `background-image:url('${member.avatar_url}');background-size:cover;background-position:center;`
           : `background:${getMemberColor(index)};`}">
         ${member.avatar_url ? '' : getInitials(member.username)}
       </div>
       <span class="detail-assignee-name">${member.username}</span>
     `;
-
     list.appendChild(row);
   });
 }
@@ -1318,7 +1233,6 @@ async function openTaskDetail(task) {
   });
 
   await renderTaskAssignees(task);
-
   document.getElementById('taskDetailPanel').classList.add('panel-open');
   document.querySelector('.content').classList.add('panel-active');
 }
@@ -1370,14 +1284,7 @@ document.getElementById('saveDetailChanges').addEventListener('click', async () 
   const description = document.getElementById('detailDescription').value.trim();
   const category_id = document.getElementById('detailCategory').value || null;
 
-  await window.api.updateTask({
-    id: currentTaskId,
-    title,
-    description,
-    due_date,
-    due_time,
-    category_id
-  });
+  await window.api.updateTask({ id: currentTaskId, title, description, due_date, due_time, category_id });
 
   const assigneeCheckboxes = document.querySelectorAll('#detailAssigneesList input[type="checkbox"]:checked');
   const selectedUserIds = Array.from(assigneeCheckboxes).map(cb => cb.value);
@@ -1388,11 +1295,11 @@ document.getElementById('saveDetailChanges').addEventListener('click', async () 
   });
 
   if (!assigneeResult?.success) {
-  closeTaskDetail();
-  await refreshCurrentView();
-  showToast('Úkol byl upraven, ale nepodařilo se uložit přiřazení členů', 'error');
-  return;
-}
+    closeTaskDetail();
+    await refreshCurrentView();
+    showToast('Úkol byl upraven, ale nepodařilo se uložit přiřazení členů', 'error');
+    return;
+  }
 
   closeTaskDetail();
   await refreshCurrentView();
@@ -1400,12 +1307,15 @@ document.getElementById('saveDetailChanges').addEventListener('click', async () 
 });
 
 
+// ==============================
+// NASTAVENÍ ÚČTU — profil a heslo
+// ==============================
+
 document.getElementById('saveProfileChanges').addEventListener('click', async () => {
   const session = await window.api.getSession();
   if (!session) return;
 
   const username = document.getElementById('settingsUsername').value.trim();
-
   if (!username) {
     showToast('Uživatelské jméno je povinné', 'error');
     return;
@@ -1426,7 +1336,6 @@ document.getElementById('saveProfileChanges').addEventListener('click', async ()
 
   document.getElementById('userName').textContent = username;
   document.getElementById('profileIcon').textContent = username[0].toUpperCase();
-
   await loadAccountSettings();
   showToast('Profil byl upraven');
 });
@@ -1450,9 +1359,6 @@ document.getElementById('savePasswordChanges')?.addEventListener('click', async 
     showToast('Nové heslo nesplňuje požadavky', 'error');
     return;
   }
-  const session = await window.api.getSession();
-  await finishAuth(session);
-  showToast('Heslo bylo úspěšně změněno');
 
   const result = await window.api.updatePassword({ password: newPassword });
 
@@ -1460,7 +1366,10 @@ document.getElementById('savePasswordChanges')?.addEventListener('click', async 
     showToast('Nepodařilo se změnit heslo', 'error');
     return;
   }
+
+  document.getElementById('settingsNewPassword').value = '';
   document.getElementById('settingsConfirmPassword').value = '';
+  document.getElementById('settingsPasswordRules').classList.add('hidden');
   showToast('Heslo bylo změněno');
 });
 
@@ -1500,7 +1409,12 @@ document.getElementById('submitResetPassword').addEventListener('click', async (
     showToast('Nepodařilo se změnit heslo: ' + result.error, 'error');
     return;
   }
-});
+
+  const session = await window.api.getSession();
+  await finishAuth(session);
+  document.getElementById('page-reset-password').classList.add('hidden');
+  showToast('Heslo bylo úspěšně změněno');
+  });
 
 document.getElementById('resetNewPassword').addEventListener('input', (e) => {
   const rules = validatePassword(e.target.value);
@@ -1515,14 +1429,10 @@ document.getElementById('resetNewPassword').addEventListener('input', (e) => {
   document.getElementById('reset-rule-special').className = `password-rule ${rules.special ? 'valid' : 'invalid'}`;
 });
 
-
-
 function updateSidebarProfile(profile, session) {
   const userNameEl = document.getElementById('userName');
   const profileIconEl = document.getElementById('profileIcon');
-
   userNameEl.textContent = profile?.username || session.user.email;
-
   if (profile?.avatar_url) {
     profileIconEl.textContent = '';
     profileIconEl.style.backgroundImage = `url("${profile.avatar_url}")`;
@@ -1532,10 +1442,10 @@ function updateSidebarProfile(profile, session) {
     profileIconEl.style.backgroundImage = 'none';
     profileIconEl.style.backgroundColor = '#0064B3';
     profileIconEl.classList.remove('has-avatar');
-    profileIconEl.textContent =
-      (profile?.username?.[0] || session.user.email?.[0] || 'U').toUpperCase();
+    profileIconEl.textContent = (profile?.username?.[0] || session.user.email?.[0] || 'U').toUpperCase();
   }
 }
+
 
 // ==============================
 // 10. PROJEKTY — vytváření, načítání, detail
@@ -1546,7 +1456,7 @@ let currentProjectRequestToken = 0;
 let currentProjectCategoryId = null;
 let currentProjectCategoryName = null;
 let currentProjectCategoryEmoji = null;
-let currentUserRole = null; // 'owner' nebo 'member'
+let currentUserRole = null;
 
 const memberColors = ['#0064B3', '#E74C3C', '#27AE60', '#8E44AD', '#F39C12', '#16A085', '#D35400', '#2C3E50'];
 
@@ -1557,7 +1467,6 @@ function getMemberColor(index) {
 function getInitials(name) {
   return name.trim().split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 }
-
 
 async function loadProjects() {
   const projects = await window.api.getAllProjects();
@@ -1575,11 +1484,9 @@ async function loadProjects() {
         window.api.getProjectMembers(project.id),
         window.api.getTasksByProject(project.id)
       ]);
-
       const totalTasks = tasks.length;
       const doneTasks = tasks.filter(t => t.status === 1).length;
       const progress = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
-
       return { project, members, progress, totalTasks };
     })
   );
@@ -1596,22 +1503,22 @@ function createProjectCard(project, members, progress, totalTasks) {
   div.dataset.id = project.id;
 
   const membersHtml = members.slice(0, 4).map((m, i) =>
-  m.avatar_url
-    ? `<div class="member-avatar-small" style="background-image:url('${m.avatar_url}');background-size:cover;background-position:center;" title="${m.username}"></div>`
-    : `<div class="member-avatar-small" style="background:${getMemberColor(i)}" title="${m.username}">${getInitials(m.username)}</div>`
-).join('');
+    m.avatar_url
+      ? `<div class="member-avatar-small" style="background-image:url('${m.avatar_url}');background-size:cover;background-position:center;" title="${m.username}"></div>`
+      : `<div class="member-avatar-small" style="background:${getMemberColor(i)}" title="${m.username}">${getInitials(m.username)}</div>`
+  ).join('');
   const extraMembers = members.length > 4 ? `<div class="member-avatar-small extra">+${members.length - 4}</div>` : '';
 
   div.innerHTML = `
     <div class="project-card-top">
       <div class="project-card-info">
         <span class="project-card-category ${!project.category_emoji ? 'no-category' : ''}">
-        ${project.category_emoji ? `${project.category_emoji} ${project.category_name}` : 'Bez kategorie'}
+          ${project.category_emoji ? `${project.category_emoji} ${project.category_name}` : 'Bez kategorie'}
         </span>
         <h3 class="project-card-title">${project.title}</h3>
         <p class="project-card-description ${!project.description ? 'no-value' : ''}">
-        ${project.description || 'Bez popisku'}
-      </p>
+          ${project.description || 'Bez popisku'}
+        </p>
       </div>
       <div class="project-card-actions">
         <button class="project-card-btn delete-project-card" title="Smazat">
@@ -1640,16 +1547,16 @@ function createProjectCard(project, members, progress, totalTasks) {
           </svg>
           <span>${formatDateTime(project.due_date, project.due_time)}</span>
         </div>`
-    : `<span class="project-card-no-date">Bez termínu</span>`}
+      : `<span class="project-card-no-date">Bez termínu</span>`}
     </div>
     <div class="project-card-progress">
-  <div class="project-progress-bar">
-    <div class="project-progress-fill" style="width:${progress}%"></div>
-  </div>
-  <span class="project-progress-label">
-    ${totalTasks === 0 ? 'Žádné úkoly' : `${progress}% dokončeno`}
-  </span>
-</div>
+      <div class="project-progress-bar">
+        <div class="project-progress-fill" style="width:${progress}%"></div>
+      </div>
+      <span class="project-progress-label">
+        ${totalTasks === 0 ? 'Žádné úkoly' : `${progress}% dokončeno`}
+      </span>
+    </div>
   `;
 
   div.addEventListener('click', (e) => {
@@ -1696,21 +1603,21 @@ async function openProjectDetail(projectId) {
   showPage('page-projekt-detail', null);
 
   const [project, members, tasks, role] = await Promise.all([
-  window.api.getProjectById(projectId),
-  window.api.getProjectMembers(projectId),
-  window.api.getTasksByProject(projectId),
-  window.api.getCurrentUserRole(projectId)
-]);
-currentUserRole = role;
-const isOwner = currentUserRole === 'owner';
+    window.api.getProjectById(projectId),
+    window.api.getProjectMembers(projectId),
+    window.api.getTasksByProject(projectId),
+    window.api.getCurrentUserRole(projectId)
+  ]);
 
-// Zobrazit/skrýt tlačítka podle role
-document.getElementById('editProjectBtn').style.display = isOwner ? '' : 'none';
-document.getElementById('deleteProjectBtn').style.display = isOwner ? '' : 'none';
-document.getElementById('addAttachmentBtn').style.display = '';
+  currentUserRole = role;
+  const isOwner = currentUserRole === 'owner';
 
-const leaveBtn = document.getElementById('leaveProjectBtn');
-if (leaveBtn) leaveBtn.style.display = isOwner ? 'none' : '';
+  document.getElementById('editProjectBtn').style.display = isOwner ? '' : 'none';
+  document.getElementById('deleteProjectBtn').style.display = isOwner ? '' : 'none';
+  document.getElementById('addAttachmentBtn').style.display = '';
+
+  const leaveBtn = document.getElementById('leaveProjectBtn');
+  if (leaveBtn) leaveBtn.style.display = isOwner ? 'none' : '';
 
   if (requestToken !== currentProjectRequestToken) return;
 
@@ -1755,42 +1662,41 @@ if (leaveBtn) leaveBtn.style.display = isOwner ? 'none' : '';
     membersEl.innerHTML = '<span style="font-family:\'InterRegular\';font-size:13px;color:#aaa;">Žádní členové týmu</span>';
   } else {
     membersEl.innerHTML = members.map((m, i) => `
-  <div class="project-member-chip">
-    <div class="project-member-chip-avatar ${m.avatar_url ? 'has-image' : ''}" 
-      style="${m.avatar_url 
-        ? `background-image:url('${m.avatar_url}');background-size:cover;background-position:center;` 
-        : `background:${getMemberColor(i)};`}">
-      ${m.avatar_url ? '' : getInitials(m.username)}
-    </div>
-    <span class="project-member-chip-name">${m.username}</span>
-    <span class="project-member-role-badge ${m.role === 'owner' ? 'badge-owner' : 'badge-member'}">
-      ${m.role === 'owner' ? 'Vlastník' : 'Člen'}
-    </span>
-    ${isOwner && m.role !== 'owner' ? `
-      <button class="remove-member-btn" data-member-id="${m.id}" title="Odebrat člena">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    ` : ''}
-  </div>
-`).join('');
+      <div class="project-member-chip">
+        <div class="project-member-chip-avatar ${m.avatar_url ? 'has-image' : ''}"
+          style="${m.avatar_url
+            ? `background-image:url('${m.avatar_url}');background-size:cover;background-position:center;`
+            : `background:${getMemberColor(i)};`}">
+          ${m.avatar_url ? '' : getInitials(m.username)}
+        </div>
+        <span class="project-member-chip-name">${m.username}</span>
+        <span class="project-member-role-badge ${m.role === 'owner' ? 'badge-owner' : 'badge-member'}">
+          ${m.role === 'owner' ? 'Vlastník' : 'Člen'}
+        </span>
+        ${isOwner && m.role !== 'owner' ? `
+          <button class="remove-member-btn" data-member-id="${m.id}" title="Odebrat člena">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        ` : ''}
+      </div>
+    `).join('');
 
-// Event listenery pro odebrání člena
-membersEl.querySelectorAll('.remove-member-btn').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    const memberId = btn.dataset.memberId;
-    const ok = await showConfirm('Odebrat člena?', 'Člen ztratí přístup k projektu.');
-    if (!ok) return;
-    const result = await window.api.deleteProjectMember(memberId);
-    if (result) {
-      showToast('Člen byl odebrán');
-      await openProjectDetail(currentProjectId);
-    } else {
-      showToast('Nepodařilo se odebrat člena', 'error');
-    }
-  });
-});
+    membersEl.querySelectorAll('.remove-member-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const memberId = btn.dataset.memberId;
+        const ok = await showConfirm('Odebrat člena?', 'Člen ztratí přístup k projektu.');
+        if (!ok) return;
+        const result = await window.api.deleteProjectMember(memberId);
+        if (result) {
+          showToast('Člen byl odebrán');
+          await openProjectDetail(currentProjectId);
+        } else {
+          showToast('Nepodařilo se odebrat člena', 'error');
+        }
+      });
+    });
   }
 
   const taskList = document.getElementById('projectTaskList');
@@ -1822,12 +1728,10 @@ async function loadProjectTasks(projectId) {
   const tasks = await window.api.getTasksByProject(projectId);
   const taskList = document.getElementById('projectTaskList');
   if (!taskList) return;
-
   if (tasks.length === 0) {
     taskList.innerHTML = '<div class="empty-state"><p>Zatím žádné úkoly v tomto projektu.</p></div>';
     return;
   }
-
   taskList.innerHTML = '';
   sortTasksByImportance(tasks).forEach(task => taskList.appendChild(createTaskElement(task)));
 }
@@ -1848,7 +1752,10 @@ document.getElementById('createProject').addEventListener('click', async () => {
   const title = titleInput.value.trim();
 
   titleInput.classList.remove('input-error');
+  document.getElementById('newProjectDate').classList.remove('input-error');
   document.querySelectorAll('#overlay-newproject .error-message').forEach(e => e.remove());
+
+  let hasError = false;
 
   if (!title) {
     titleInput.classList.add('input-error');
@@ -1856,22 +1763,28 @@ document.getElementById('createProject').addEventListener('click', async () => {
     err.className = 'error-message';
     err.textContent = 'Název projektu je povinný';
     titleInput.insertAdjacentElement('afterend', err);
-    return;
+    hasError = true;
   }
 
+  const dateInput = document.getElementById('newProjectDate');
+  const due_date = dateInput.value;
+
+  if (!due_date) {
+    dateInput.classList.add('input-error');
+    const err = document.createElement('p');
+    err.className = 'error-message';
+    err.textContent = 'Termín dokončení je povinný';
+    dateInput.closest('.date-time-row').insertAdjacentElement('afterend', err);
+    hasError = true;
+  }
+
+  if (hasError) return;
+
   const description = document.getElementById('newProjectDescription').value.trim();
-  const rawDueDate = document.getElementById('newProjectDate').value;
-  const due_date = rawDueDate || null;
   const due_time = document.getElementById('newProjectTime').value || null;
   const category_id = document.getElementById('newProjectCategory').value || null;
 
-  const project = await window.api.addProject({
-    title,
-    description,
-    due_date,
-    due_time,
-    category_id
-  });
+  const project = await window.api.addProject({ title, description, due_date, due_time, category_id });
 
   if (!project) {
     showToast('Projekt se nepodařilo vytvořit', 'error');
@@ -1884,19 +1797,15 @@ document.getElementById('createProject').addEventListener('click', async () => {
   document.getElementById('newProjectDate').value = '';
   document.getElementById('newProjectCategory').value = '';
   document.getElementById('newProjectTime').value = '';
-
   showToast('Projekt byl vytvořen.');
 
-if (currentProjectCategoryId) {
-  await loadProjectsByCategory(
-    currentProjectCategoryId,
-    currentProjectCategoryName,
-    currentProjectCategoryEmoji
-  );
-} else {
-  await loadProjects();
-}
+  if (currentProjectCategoryId) {
+    await loadProjectsByCategory(currentProjectCategoryId, currentProjectCategoryName, currentProjectCategoryEmoji);
+  } else {
+    await loadProjects();
+  }
 });
+
 
 // ==============================
 // 11. EDITACE PROJEKTU
@@ -1904,16 +1813,12 @@ if (currentProjectCategoryId) {
 
 document.getElementById('editProjectBtn').addEventListener('click', async () => {
   if (!currentProjectId) return;
-
   const project = await window.api.getProjectById(currentProjectId);
-
   document.getElementById('editProjectTitle').value = project.title || '';
   document.getElementById('editProjectDescription').value = project.description || '';
   document.getElementById('editProjectDate').value = project.due_date || '';
   document.getElementById('editProjectTime').value = project.due_time || '';
-
   await loadProjectCategoriesIntoDropdown('editProjectCategory', project.category_id || '');
-
   document.getElementById('overlay-editproject').classList.remove('hidden');
 });
 
@@ -1933,7 +1838,10 @@ document.getElementById('saveEditProject').addEventListener('click', async () =>
   const due_time = document.getElementById('editProjectTime').value || null;
 
   titleInput.classList.remove('input-error');
-  document.querySelectorAll('#overlay-editproject .error-message').forEach(e => e.remove());
+  document.getElementById('newProjectDate').classList.remove('input-error');
+  document.querySelectorAll('#overlay-newproject .error-message').forEach(e => e.remove());
+
+  let hasError = false;
 
   if (!title) {
     titleInput.classList.add('input-error');
@@ -1941,23 +1849,27 @@ document.getElementById('saveEditProject').addEventListener('click', async () =>
     err.className = 'error-message';
     err.textContent = 'Název projektu je povinný';
     titleInput.insertAdjacentElement('afterend', err);
-    return;
+    hasError = true;
   }
 
+  const dateInput = document.getElementById('newProjectDate');
+  const due_date = dateInput.value;
+
+  if (!due_date) {
+    dateInput.classList.add('input-error');
+    const err = document.createElement('p');
+    err.className = 'error-message';
+    err.textContent = 'Termín dokončení je povinný';
+    dateInput.closest('.date-time-row').insertAdjacentElement('afterend', err);
+    hasError = true;
+  }
+
+  if (hasError) return;
+
   const description = document.getElementById('editProjectDescription').value.trim();
-  const rawDueDate = document.getElementById('editProjectDate').value;
-  const due_date = rawDueDate || null;
   const category_id = document.getElementById('editProjectCategory').value || null;
 
-  await window.api.updateProject({
-    id: currentProjectId,
-    title,
-    description,
-    due_date,
-    due_time,
-    category_id
-  });
-
+  await window.api.updateProject({ id: currentProjectId, title, description, due_date, due_time, category_id });
   document.getElementById('overlay-editproject').classList.add('hidden');
   showToast('Projekt byl upraven');
   await openProjectDetail(currentProjectId);
@@ -1967,16 +1879,12 @@ async function loadProjectCategoriesIntoDropdown(selectId, selectedValue = '') {
   const categories = await window.api.getAllProjectCategories();
   const select = document.getElementById(selectId);
   if (!select) return;
-
   select.innerHTML = '<option value="">Bez kategorie</option>';
-
   categories.forEach(category => {
     const option = document.createElement('option');
     option.value = category.id;
     option.textContent = `${category.emoji} ${category.name}`;
-    if (selectedValue && selectedValue === category.id) {
-      option.selected = true;
-    }
+    if (selectedValue && selectedValue === category.id) option.selected = true;
     select.appendChild(option);
   });
 }
@@ -1985,7 +1893,6 @@ document.getElementById('addProjectBtn').addEventListener('click', async () => {
   overlayNewProject.classList.remove('hidden');
   await loadProjectCategoriesIntoDropdown('newProjectCategory', currentProjectCategoryId || '');
 });
-
 
 document.getElementById('leaveProjectBtn').addEventListener('click', async () => {
   const ok = await showConfirm('Opustit projekt?', 'Přijdeš o přístup k tomuto projektu.');
@@ -2008,31 +1915,22 @@ document.getElementById('leaveProjectBtn').addEventListener('click', async () =>
 
 document.getElementById('addAttachmentBtn').addEventListener('click', async () => {
   if (!currentProjectId) return;
-
   const picked = await window.api.pickAttachments();
-
   if (!picked?.success) {
-    showToast('Nepodařilo se vybrat soubory','error');
+    showToast('Nepodařilo se vybrat soubory', 'error');
     console.error(picked?.error);
     return;
   }
-
   if (!picked.files || picked.files.length === 0) return;
 
   let uploadedCount = 0;
-
   for (const file of picked.files) {
-    const result = await window.api.uploadAttachment({
-      projectId: currentProjectId,
-      filePath: file.path
-    });
-
+    const result = await window.api.uploadAttachment({ projectId: currentProjectId, filePath: file.path });
     if (!result?.success) {
       console.error(result?.error);
       showToast(`Soubor ${file.name} se nepodařilo nahrát`, 'error');
       continue;
     }
-
     uploadedCount++;
   }
 
@@ -2120,12 +2018,9 @@ function renderAttachments(attachments) {
   list.querySelectorAll('.attachment-card').forEach(card => {
     card.addEventListener('click', async (e) => {
       if (e.target.closest('.attachment-delete')) return;
-
       const attachmentId = card.dataset.id;
       if (!attachmentId) return;
-
       const result = await window.api.openAttachment(attachmentId);
-
       if (!result?.success) {
         console.error(result?.error);
         showToast('Soubor se nepodařilo otevřít', 'error');
@@ -2134,12 +2029,14 @@ function renderAttachments(attachments) {
   });
 }
 
-// ==============================
-// 13. HELPERS
-// ==============================
+async function loadProjectAttachments(projectId) {
+  const attachments = await window.api.getProjectAttachments(projectId);
+  renderAttachments(attachments || []);
+}
+
 
 // ==============================
-// ÚPRAVA KATEGORIE
+// 13. ÚPRAVA KATEGORIE
 // ==============================
 
 document.getElementById('cancelEditCategory').addEventListener('click', () => {
@@ -2192,7 +2089,6 @@ document.getElementById('saveEditCategory').addEventListener('click', async () =
   if (hasError) return;
 
   const emoji = selectedEmoji.textContent;
-
   if (categoryType === 'task') {
     await window.api.updateTaskCategory({ id: categoryId, name, emoji });
     await loadTaskCategories();
@@ -2200,37 +2096,217 @@ document.getElementById('saveEditCategory').addEventListener('click', async () =
     await window.api.updateProjectCategory({ id: categoryId, name, emoji });
     await loadProjectCategories();
   }
-
   overlay.classList.add('hidden');
   showToast('Kategorie byla upravena');
 });
 
+
 // ==============================
-// SMAZÁNÍ ÚČTU A AVATAR
+// 14. AVATAR A NASTAVENÍ ÚČTU
 // ==============================
 
 document.getElementById('removeAvatarBtn')?.addEventListener('click', async () => {
   const session = await window.api.getSession();
   if (!session) return;
-
   const ok = await showConfirm('Odebrat profilový obrázek?', 'Obrázek bude trvale odstraněn.');
   if (!ok) return;
-
   const result = await window.api.removeAvatar({ userId: session.user.id });
-
   if (!result?.success) {
     showToast('Nepodařilo se odebrat profilový obrázek', 'error');
     return;
   }
-
   const profile = await window.api.getProfile(session.user.id);
   updateSidebarProfile(profile, session);
   await loadAccountSettings();
   showToast('Profilový obrázek byl odebrán');
 });
 
+document.getElementById('settingsAvatarInput')?.addEventListener('change', async (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  const session = await window.api.getSession();
+  if (!session) {
+    showToast('Nejste přihlášena');
+    return;
+  }
+  const arrayBuffer = await file.arrayBuffer();
+  const bytes = Array.from(new Uint8Array(arrayBuffer));
+  const result = await window.api.uploadAvatar({
+    userId: session.user.id,
+    fileName: file.name,
+    mimeType: file.type,
+    fileBytes: bytes
+  });
+  if (!result.success) {
+    showToast('Nepodařilo se nahrát profilový obrázek', 'error');
+    console.error(result.error);
+    return;
+  }
+  const profile = await window.api.getProfile(session.user.id);
+  updateSidebarProfile(profile, session);
+  await loadAccountSettings();
+  const freshProfile = await window.api.getProfile(session.user.id);
+  if (freshProfile?.avatar_url) {
+    const profileIconEl = document.getElementById('profileIcon');
+    profileIconEl.style.backgroundImage = `url("${freshProfile.avatar_url}?t=${Date.now()}")`;
+    profileIconEl.classList.add('has-avatar');
+    profileIconEl.textContent = '';
+  }
+  showToast('Profilový obrázek byl změněn');
+});
+
+async function loadAccountSettings() {
+  const session = await window.api.getSession();
+  if (!session) return;
+  const profile = await window.api.getProfile(session.user.id);
+  if (!profile) return;
+
+  const usernameInput = document.getElementById('settingsUsername');
+  const emailInput = document.getElementById('settingsEmail');
+  const avatarPreview = document.getElementById('settingsAvatarPreview');
+
+  if (usernameInput) usernameInput.value = profile.username || '';
+  if (emailInput) emailInput.value = session.user.email || '';
+
+  if (avatarPreview) {
+    if (profile.avatar_url) {
+      avatarPreview.textContent = '';
+      avatarPreview.style.backgroundImage = `url("${profile.avatar_url}")`;
+      avatarPreview.style.backgroundColor = 'transparent';
+      avatarPreview.classList.add('has-avatar');
+    } else {
+      avatarPreview.style.backgroundImage = 'none';
+      avatarPreview.style.backgroundColor = '#0064B3';
+      avatarPreview.classList.remove('has-avatar');
+      avatarPreview.textContent = (profile.username?.[0] || session.user.email?.[0] || 'U').toUpperCase();
+    }
+  }
+
+  updateSidebarProfile(profile, session);
+}
+
+
 // ==============================
-// NAVIGACE — DŮLEŽITÉ
+// 15. ONBOARDING
+// ==============================
+
+document.getElementById('onboardingForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const session = await window.api.getSession();
+  if (!session) {
+    showToast('Nejste přihlášena', 'error');
+    return;
+  }
+
+  const username = document.getElementById('onboardingUsername').value.trim();
+  if (!username) {
+    showToast('Zadejte uživatelské jméno', 'error');
+    return;
+  }
+
+  const result = await window.api.updateProfile({ userId: session.user.id, username });
+  if (!result.success) {
+    showToast('Nepodařilo se uložit profil', 'error');
+    return;
+  }
+
+  const avatarFile = document.getElementById('onboardingAvatar').files?.[0];
+  if (avatarFile) {
+    if (!avatarFile.type.startsWith('image/')) {
+      showToast('Prosím vyberte pouze obrázek', 'error');
+      return;
+    }
+    const arrayBuffer = await avatarFile.arrayBuffer();
+    const bytes = Array.from(new Uint8Array(arrayBuffer));
+    const avatarResult = await window.api.uploadAvatar({
+      userId: session.user.id,
+      fileName: avatarFile.name,
+      mimeType: avatarFile.type,
+      fileBytes: bytes
+    });
+    if (!avatarResult.success) {
+      showToast('Profil uložen, ale profilovku se nepodařilo nahrát', 'error');
+    } else {
+      showToast('Profilový obrázek byl úspěšně nahrán', 'success');
+    }
+  }
+
+  const profile = await window.api.getProfile(session.user.id);
+  showMainApp();
+  updateSidebarProfile(profile || { username, avatar_url: null }, session);
+  showPage('page-dnes', 'btn-dnes');
+  setPageLoading(true);
+  await loadEverything();
+  await updateFilterCounts();
+  setPageLoading(false);
+  showToast('Profil byl dokončen.');
+});
+
+document.getElementById('onboardingAvatar').addEventListener('change', (e) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    document.getElementById('onboardingAvatarLabel').textContent = file.name;
+  }
+});
+
+
+// ==============================
+// 16. PŘIPOJENÍ K PROJEKTU
+// ==============================
+
+const overlayJoin = document.getElementById('overlay-joinproject');
+
+document.getElementById('joinProjectBtn').addEventListener('click', () => {
+  overlayJoin.classList.remove('hidden');
+});
+
+document.getElementById('confirmJoinProject').addEventListener('click', async () => {
+  const code = document.getElementById('joinCodeInput').value.trim().toUpperCase();
+  if (!code) {
+    showToast('Zadej kód', 'error');
+    return;
+  }
+  const result = await window.api.joinProjectByCode(code);
+  if (!result.success) {
+    showToast(result.error, 'error');
+    return;
+  }
+  overlayJoin.classList.add('hidden');
+  document.getElementById('joinCodeInput').value = '';
+  showToast('Úspěšně připojeno k projektu');
+  await openProjectDetail(result.project.id);
+});
+
+document.getElementById('cancelJoinProject').addEventListener('click', () => {
+  overlayJoin.classList.add('hidden');
+  document.getElementById('joinCodeInput').value = '';
+});
+
+overlayJoin.addEventListener('click', (e) => {
+  if (e.target === overlayJoin) {
+    overlayJoin.classList.add('hidden');
+    document.getElementById('joinCodeInput').value = '';
+  }
+});
+
+document.getElementById('copyProjectCodeBtn')?.addEventListener('click', async () => {
+  const code = document.getElementById('projectJoinCode')?.textContent?.trim();
+  if (!code) {
+    showToast('Kód projektu není k dispozici', 'error');
+    return;
+  }
+  try {
+    await navigator.clipboard.writeText(code);
+    showToast('Kód projektu byl zkopírován', 'info');
+  } catch (err) {
+    console.error(err);
+    showToast('Nepodařilo se zkopírovat kód', 'error');
+  }
+});
+
+
+// ==============================
+// 17. NAVIGACE — DŮLEŽITÉ
 // ==============================
 
 document.getElementById('btn-dulezite').addEventListener('click', async () => {
@@ -2268,6 +2344,11 @@ async function loadImportantTasks(showCompleted = false) {
   }
 }
 
+
+// ==============================
+// 18. HELPERS — loadEverything, finishAuth
+// ==============================
+
 async function loadEverything() {
   await Promise.all([
     loadTasks(),
@@ -2278,243 +2359,27 @@ async function loadEverything() {
 
 async function finishAuth(session) {
   const profile = await window.api.getProfile(session.user.id);
-  
   if (!profile || !profile.username || profile.username.trim() === '') {
     showAuthPage('page-onboarding');
     return;
   }
-
   showMainApp();
   updateSidebarProfile(profile, session);
   showPage('page-dnes', 'btn-dnes');
-  
   setPageLoading(true);
   await loadEverything();
   await updateFilterCounts();
   setPageLoading(false);
-}
-
-document.getElementById('onboardingForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const session = await window.api.getSession();
-  if (!session) {
-    showToast('Nejste přihlášena', 'error');
-    return;
-  }
-
-  const username = document.getElementById('onboardingUsername').value.trim();
-
-  if (!username) {
-    showToast('Zadejte uživatelské jméno', 'error');
-    return;
-  }
-
-  // 1. Nejdřív ulož username
-  const result = await window.api.updateProfile({
-    userId: session.user.id,
-    username
-  });
-
-  if (!result.success) {
-    showToast('Nepodařilo se uložit profil', 'error');
-    return;
-  }
-
-
-  const avatarFile = document.getElementById('onboardingAvatar').files?.[0];
-  if (avatarFile) {
-    if (!avatarFile.type.startsWith('image/')) {
-      showToast('Prosím vyberte pouze obrázek', 'error');
-      return;
-    }
-    const arrayBuffer = await avatarFile.arrayBuffer();
-    const bytes = Array.from(new Uint8Array(arrayBuffer));
-
-    const avatarResult = await window.api.uploadAvatar({
-      userId: session.user.id,
-      fileName: avatarFile.name,
-      mimeType: avatarFile.type,
-      fileBytes: bytes
-    });
-
-    if (!avatarResult.success) {
-  showToast('Profil uložen, ale profilovku se nepodařilo nahrát', 'error');
-} else {
-  showToast('Profilový obrázek byl úspěšně nahrán', 'success');
-}
-}
-
-
-  
-  const profile = await window.api.getProfile(session.user.id);
-
- 
-  showMainApp();
-  updateSidebarProfile(profile || { username, avatar_url: null }, session);
-  showPage('page-dnes', 'btn-dnes');
-  
-  setPageLoading(true);
-  await loadEverything();
-  await updateFilterCounts();
-  setPageLoading(false);
-
-  showToast('Profil byl dokončen.');
-});
-
-document.getElementById('onboardingAvatar').addEventListener('change', (e) => {
-  const file = e.target.files?.[0];
-  if (file) {
-    document.getElementById('onboardingAvatarLabel').textContent = file.name;
-  }
-});
-
-async function loadAccountSettings() {
-  const session = await window.api.getSession();
-  if (!session) return;
-
-  const profile = await window.api.getProfile(session.user.id);
-  if (!profile) return;
-
-  const usernameInput = document.getElementById('settingsUsername');
-  const emailInput = document.getElementById('settingsEmail');
-  const avatarPreview = document.getElementById('settingsAvatarPreview');
-
-  if (usernameInput) usernameInput.value = profile.username || '';
-  if (emailInput) emailInput.value = session.user.email || '';
-
-  if (avatarPreview) {
-    if (profile.avatar_url) {
-      avatarPreview.textContent = '';
-      avatarPreview.style.backgroundImage = `url("${profile.avatar_url}")`;
-      avatarPreview.style.backgroundColor = 'transparent';
-      avatarPreview.classList.add('has-avatar');
-    } else {
-      avatarPreview.style.backgroundImage = 'none';
-      avatarPreview.style.backgroundColor = '#0064B3';
-      avatarPreview.classList.remove('has-avatar');
-      avatarPreview.textContent =
-        (profile.username?.[0] || session.user.email?.[0] || 'U').toUpperCase();
-    }
-  }
-
-  updateSidebarProfile(profile, session);
-}
-
-document.getElementById('settingsAvatarInput')?.addEventListener('change', async (e) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-
-  const session = await window.api.getSession();
-  if (!session) {
-    showToast('Nejste přihlášena');
-    return;
-  }
-
-  const arrayBuffer = await file.arrayBuffer();
-  const bytes = Array.from(new Uint8Array(arrayBuffer));
-
-  const result = await window.api.uploadAvatar({
-    userId: session.user.id,
-    fileName: file.name,
-    mimeType: file.type,
-    fileBytes: bytes
-  });
-
-  if (!result.success) {
-    showToast('Nepodařilo se nahrát profilový obrázek', 'error');
-    console.error(result.error);
-    return;
-  }
-
-  const profile = await window.api.getProfile(session.user.id);
-  updateSidebarProfile(profile, session);
-  await loadAccountSettings();
-
-
-  const freshProfile = await window.api.getProfile(session.user.id);
-if (freshProfile?.avatar_url) {
-  const profileIconEl = document.getElementById('profileIcon');
-  profileIconEl.style.backgroundImage = `url("${freshProfile.avatar_url}?t=${Date.now()}")`;
-  profileIconEl.classList.add('has-avatar');
-  profileIconEl.textContent = '';
-}
-
-  showToast('Profilovvý obrázek byl změněn');
-});
-
-const overlayJoin = document.getElementById('overlay-joinproject');
-
-document.getElementById('joinProjectBtn').addEventListener('click', () => {
-  overlayJoin.classList.remove('hidden');
-});
-
-document.getElementById('confirmJoinProject').addEventListener('click', async () => {
-  const code = document.getElementById('joinCodeInput').value.trim().toUpperCase();
-
-  if (!code) {
-    showToast('Zadej kód', 'error');
-    return;
-  }
-
-  const result = await window.api.joinProjectByCode(code);
-
-  if (!result.success) {
-    showToast(result.error, 'error');
-    return;
-  }
-
-  overlayJoin.classList.add('hidden');
-  document.getElementById('joinCodeInput').value = '';
-
-  showToast('Úspěšně připojeno k projektu');
-
-  await openProjectDetail(result.project.id);
-});
-
-document.getElementById('cancelJoinProject').addEventListener('click', () => {
-  overlayJoin.classList.add('hidden');
-  document.getElementById('joinCodeInput').value = '';
-});
-
-overlayJoin.addEventListener('click', (e) => {
-  if (e.target === overlayJoin) {
-    overlayJoin.classList.add('hidden');
-    document.getElementById('joinCodeInput').value = '';
-  }
-});
-
-document.getElementById('copyProjectCodeBtn')?.addEventListener('click', async () => {
-  const code = document.getElementById('projectJoinCode')?.textContent?.trim();
-
-  if (!code) {
-    showToast('Kód projektu není k dispozici', 'error');
-    return;
-  }
-
-  try {
-    await navigator.clipboard.writeText(code);
-    showToast('Kód projektu byl zkopírován', 'info');
-  } catch (err) {
-    console.error(err);
-    showToast('Nepodařilo se zkopírovat kód', 'error');
-  }
-});
-
-async function loadProjectAttachments(projectId) {
-  const attachments = await window.api.getProjectAttachments(projectId);
-  renderAttachments(attachments || []);
 }
 
 
 // ==============================
-// VYHLEDÁVÁNÍ
+// 19. VYHLEDÁVÁNÍ
 // ==============================
 
 async function performSearch(query) {
   const q = query.trim().toLowerCase();
   const resultsContainer = document.getElementById('searchResults');
-
   if (!q) {
     resultsContainer.classList.add('hidden');
     return;
@@ -2560,7 +2425,6 @@ function renderSearchResults(tasks, projects, query) {
     const section = document.createElement('div');
     section.className = 'search-section';
     section.innerHTML = `<p class="search-section-label">Úkoly</p>`;
-
     tasks.forEach(task => {
       const item = document.createElement('div');
       item.className = 'search-result-item';
@@ -2594,7 +2458,6 @@ function renderSearchResults(tasks, projects, query) {
       });
       section.appendChild(item);
     });
-
     container.appendChild(section);
   }
 
@@ -2602,7 +2465,6 @@ function renderSearchResults(tasks, projects, query) {
     const section = document.createElement('div');
     section.className = 'search-section';
     section.innerHTML = `<p class="search-section-label">Projekty</p>`;
-
     projects.forEach(project => {
       const item = document.createElement('div');
       item.className = 'search-result-item';
@@ -2623,7 +2485,6 @@ function renderSearchResults(tasks, projects, query) {
       });
       section.appendChild(item);
     });
-
     container.appendChild(section);
   }
 
@@ -2652,8 +2513,9 @@ document.addEventListener('click', (e) => {
   }
 });
 
+
 // ==============================
-// KALENDÁŘ
+// 20. KALENDÁŘ
 // ==============================
 
 let calendarDate = new Date();
@@ -2711,20 +2573,17 @@ async function renderCalendar() {
   let startOffset = firstDay.getDay() - 1;
   if (startOffset < 0) startOffset = 6;
 
-  // Odstraň staré dny ale zachovej názvy dnů
   const grid = document.getElementById('calendarGrid');
   const dayNames = grid.querySelectorAll('.calendar-day-name');
   grid.innerHTML = '';
   dayNames.forEach(d => grid.appendChild(d));
 
-  // Prázdné buňky
   for (let i = 0; i < startOffset; i++) {
     const empty = document.createElement('div');
     empty.className = 'calendar-day empty';
     grid.appendChild(empty);
   }
 
-  // Dny měsíce
   for (let d = 1; d <= lastDay.getDate(); d++) {
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     const events = eventMap[dateStr] || [];
@@ -2750,6 +2609,7 @@ async function renderCalendar() {
 
   renderUpcomingEvents(eventMap, today);
 }
+
 function renderUpcomingEvents(eventMap, today) {
   const list = document.getElementById('calendarEventsList');
 
@@ -2776,7 +2636,6 @@ function renderUpcomingEvents(eventMap, today) {
     events.forEach(({ type, item }) => {
       const eventEl = document.createElement('div');
       eventEl.className = `calendar-event-item ${type === 'task' ? 'event-task' : 'event-project'}`;
-
       eventEl.innerHTML = `
         <div class="calendar-event-icon">
           ${type === 'task'

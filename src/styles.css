@@ -1679,9 +1679,9 @@ button, input, textarea, select {
   max-width: 700px;
 }
 
-.calendar-event-item.event-project { border-left: 3px solid #27AE60; cursor: pointer; }
+.calendar-event-item.event-project { border-left: 3px solid var(--color-text_odkaz); cursor: pointer; }
 .calendar-event-item.event-project:hover { background: #f5f5f5; }
-.calendar-event-item.event-task { border-left: 3px solid #0088F0; }
+.calendar-event-item.event-task { border-left: 3px solid var(--color-mid); }
 
 .calendar-event-icon { color: #888; display: flex; align-items: center; }
 .calendar-event-body { flex: 1; }
