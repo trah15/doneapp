@@ -1347,14 +1347,14 @@ button, input, textarea, select {
 
 .project-member-role-badge {
   font-size: 10px;
-  padding: 2px 6px;
+  padding: 4px 9px;
   border-radius: 10px;
   font-family: 'InterSemiBold';
   margin-left: 4px;
 }
 
 .badge-owner { background: #fff3cd; color: #856404; }
-.badge-member { background: #EBF1FF; color: #004279; }
+.badge-member { background: var(--color-BUTTONY); color: white; }
 
 .remove-member-btn {
   background: none;
@@ -2090,6 +2090,7 @@ button, input, textarea, select {
 .date-time-row {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .date-time-row input { flex: 1; }

@@ -139,7 +139,7 @@ export default function setUpHandlers() {
     const { data, error } = await supabase
       .from('Task')
       .select('*, TaskCategory(name, emoji)')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false }); 
 
     if (error) {
       console.error('tasks:getAll error:', error);
@@ -154,7 +154,7 @@ export default function setUpHandlers() {
       .from('Task')
       .select('*, TaskCategory(name, emoji)')
       .eq('due_date', date)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false }); 
 
     if (error) {
       console.error('tasks:getByDate error:', error);
@@ -170,6 +170,7 @@ export default function setUpHandlers() {
       .select('*, TaskCategory(name, emoji)')
       .eq('category_id', categoryId)
       .order('created_at', { ascending: false });
+      
 
     if (error) {
       console.error('tasks:getByCategory error:', error);
@@ -193,31 +194,26 @@ export default function setUpHandlers() {
 
   const tasks = data.map(flattenCategory);
 
-  for (const task of tasks) {
-    const { data: assignees, error: assigneesError } = await supabase
+  await Promise.all(tasks.map(async (task) => {
+    const { data: assignees } = await supabase
       .from('TaskAssignee')
       .select('*')
       .eq('task_id', task.id);
 
-    if (assigneesError || !assignees || assignees.length === 0) {
+    if (!assignees || assignees.length === 0) {
       task.assignees = [];
-      continue;
+      return;
     }
 
     const userIds = assignees.map(a => a.user_id).filter(Boolean);
 
-    const { data: profiles, error: profilesError } = await supabase
+    const { data: profiles } = await supabase
       .from('Profiles')
       .select('id, username, avatar_url')
       .in('id', userIds);
 
-    if (profilesError || !profiles) {
-      task.assignees = [];
-      continue;
-    }
-
     task.assignees = assignees.map(assignee => {
-      const profile = profiles.find(p => p.id === assignee.user_id);
+      const profile = profiles?.find(p => p.id === assignee.user_id);
       return {
         id: assignee.id,
         user_id: assignee.user_id,
@@ -225,7 +221,7 @@ export default function setUpHandlers() {
         avatar_url: profile?.avatar_url || null
       };
     });
-  }
+  }));
 
   return tasks;
 });
@@ -470,7 +466,7 @@ export default function setUpHandlers() {
     const { data, error } = await supabase
       .from('Project')
       .select('*, ProjectCategory(name, emoji)')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: true });
 
     if (error) {
       console.error('projects:getAll error:', error);
@@ -541,8 +537,7 @@ ipcMain.handle('projects:getByCategory', async (_, categoryId) => {
   const { data, error } = await supabase
     .from('Project')
     .select('*, ProjectCategory(name, emoji)')
-    .eq('category_id', categoryId)
-    .order('created_at', { ascending: false });
+    .eq('category_id', categoryId);
 
   if (error) {
     console.error('projects:getByCategory error:', error);
@@ -564,6 +559,7 @@ ipcMain.handle('projects:getByCategory', async (_, categoryId) => {
       .eq('project_id', project_id)
       .eq('is_removed', false)
       .order('created_at', { ascending: true });
+    
 
     if (error || !members) {
       console.error('projectMembers:get error:', error);
@@ -714,7 +710,7 @@ ipcMain.handle('projects:getByCategory', async (_, categoryId) => {
     try {
       const fileBuffer = Buffer.from(fileBytes);
       const fileExt = path.extname(fileName) || '.png';
-      const storagePath = `${userId}/avatar${fileExt}`;
+      const storagePath = `${userId}/avatar_${Date.now()}${fileExt}`;
 
       const { error: uploadError } = await supabase.storage
         .from('avatars')
@@ -774,6 +770,7 @@ ipcMain.handle('projects:getByCategory', async (_, categoryId) => {
         .select('*')
         .eq('project_id', projectId)
         .order('created_at', { ascending: false });
+
 
       if (error) {
         console.error('attachments:getByProject error:', error);

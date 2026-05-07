@@ -566,7 +566,13 @@ async function refreshCurrentView() {
   const showingCompleted = activeFilter && activeFilter.textContent.includes('Dokončené');
 
   if (activePage.id === 'page-dnes') {
-    await loadTasks();
+    const activeFilter = activePage.querySelector('.filter-btn.active');
+    if (activeFilter && activeFilter.textContent.includes('Dokončené')) {
+      await showCompletedTasks();
+    } else {
+      await loadTasks();
+    }
+    await updateFilterCounts();
     return;
   }
 
@@ -714,11 +720,18 @@ async function loadTasks() {
   const taskList = document.getElementById('taskList');
   if (!taskList) return;
 
-  if (tasks.length === 0) {
-    taskList.innerHTML = '<div class="empty-state"><p>Zatím žádné úkoly pro dnešní den. Vytvořte si je!</p></div>';
+  const activeFilter = document.querySelector('#page-dnes .filter-btn.active');
+  const showingCompleted = activeFilter && activeFilter.textContent.includes('Dokončené');
+
+  const filtered = sortTasksByImportance(
+    tasks.filter(task => showingCompleted ? task.status === 1 : task.status === 0)
+  );
+
+  if (filtered.length === 0) {
+    taskList.innerHTML = `<div class="empty-state"><p>${showingCompleted ? 'Žádné dokončené úkoly pro dnešní den.' : 'Zatím žádné úkoly pro dnešní den. Vytvořte si je!'}</p></div>`;
   } else {
     taskList.innerHTML = '';
-    sortTasksByImportance(tasks).forEach(task => taskList.appendChild(createTaskElement(task)));
+    filtered.forEach(task => taskList.appendChild(createTaskElement(task)));
   }
 
   await updateFilterCounts();
@@ -881,7 +894,7 @@ document.getElementById('createTask').addEventListener('click', async () => {
     const err = document.createElement('p');
     err.className = 'error-message';
     err.textContent = 'Termín dokončení je povinný';
-    dateInput.insertAdjacentElement('afterend', err);
+    document.querySelector('#overlay-newukol .date-time-row').insertAdjacentElement('afterend', err);
     hasError = true;
   }
 
@@ -1433,10 +1446,13 @@ document.getElementById('savePasswordChanges')?.addEventListener('click', async 
   }
 
   const passwordOk = validatePassword(newPassword);
-  if (!(passwordOk.length && passwordOk.letter && passwordOk.number)) {
+  if (!(passwordOk.length && passwordOk.special && passwordOk.number)) {
     showToast('Nové heslo nesplňuje požadavky', 'error');
     return;
   }
+  const session = await window.api.getSession();
+  await finishAuth(session);
+  showToast('Heslo bylo úspěšně změněno');
 
   const result = await window.api.updatePassword({ password: newPassword });
 
@@ -1444,19 +1460,18 @@ document.getElementById('savePasswordChanges')?.addEventListener('click', async 
     showToast('Nepodařilo se změnit heslo', 'error');
     return;
   }
+  document.getElementById('settingsConfirmPassword').value = '';
+  showToast('Heslo bylo změněno');
+});
 
-  document.getElementById('settingsNewPassword')?.addEventListener('input', (e) => {
+document.getElementById('settingsNewPassword')?.addEventListener('input', (e) => {
   const rules = validatePassword(e.target.value);
   const box = document.getElementById('settingsPasswordRules');
   if (e.target.value.length > 0) box.classList.remove('hidden');
   else box.classList.add('hidden');
   document.getElementById('settings-rule-length').className = `password-rule ${rules.length ? 'valid' : 'invalid'}`;
-  document.getElementById('settings-rule-letter').className = `password-rule ${rules.letter ? 'valid' : 'invalid'}`;
   document.getElementById('settings-rule-number').className = `password-rule ${rules.number ? 'valid' : 'invalid'}`;
-});
-
-  document.getElementById('settingsConfirmPassword').value = '';
-  showToast('Heslo bylo změněno');
+  document.getElementById('settings-rule-special').className = `password-rule ${rules.special ? 'valid' : 'invalid'}`;
 });
 
 document.getElementById('submitResetPassword').addEventListener('click', async () => {
@@ -1474,7 +1489,7 @@ document.getElementById('submitResetPassword').addEventListener('click', async (
   }
 
   const passwordOk = validatePassword(newPassword);
-  if (!(passwordOk.length && passwordOk.letter && passwordOk.number)) {
+  if (!(passwordOk.length && passwordOk.special && passwordOk.number)) {
     showToast('Heslo nesplňuje požadavky', 'error');
     return;
   }
@@ -1485,23 +1500,21 @@ document.getElementById('submitResetPassword').addEventListener('click', async (
     showToast('Nepodařilo se změnit heslo: ' + result.error, 'error');
     return;
   }
+});
 
-  document.getElementById('resetNewPassword')?.addEventListener('input', (e) => {
+document.getElementById('resetNewPassword').addEventListener('input', (e) => {
   const rules = validatePassword(e.target.value);
   const box = document.getElementById('resetPasswordRules');
-  if (e.target.value.length > 0) box.classList.remove('hidden');
-  else box.classList.add('hidden');
+  if (e.target.value.length > 0) {
+    box.classList.remove('hidden');
+  } else {
+    box.classList.add('hidden');
+  }
   document.getElementById('reset-rule-length').className = `password-rule ${rules.length ? 'valid' : 'invalid'}`;
-  document.getElementById('reset-rule-letter').className = `password-rule ${rules.letter ? 'valid' : 'invalid'}`;
   document.getElementById('reset-rule-number').className = `password-rule ${rules.number ? 'valid' : 'invalid'}`;
+  document.getElementById('reset-rule-special').className = `password-rule ${rules.special ? 'valid' : 'invalid'}`;
 });
 
-  document.getElementById('resetConfirmPassword').value = '';
-
-  const session = await window.api.getSession();
-  await finishAuth(session);
-  showToast('Heslo bylo úspěšně změněno');
-});
 
 
 function updateSidebarProfile(profile, session) {
@@ -1682,13 +1695,13 @@ async function openProjectDetail(projectId) {
   clearProjectDetail();
   showPage('page-projekt-detail', null);
 
-  const [project, members, tasks] = await Promise.all([
-    window.api.getProjectById(projectId),
-    window.api.getProjectMembers(projectId),
-    window.api.getTasksByProject(projectId)
-  ]);
-
-  currentUserRole = await window.api.getCurrentUserRole(projectId);
+  const [project, members, tasks, role] = await Promise.all([
+  window.api.getProjectById(projectId),
+  window.api.getProjectMembers(projectId),
+  window.api.getTasksByProject(projectId),
+  window.api.getCurrentUserRole(projectId)
+]);
+currentUserRole = role;
 const isOwner = currentUserRole === 'owner';
 
 // Zobrazit/skrýt tlačítka podle role
@@ -1767,6 +1780,8 @@ if (leaveBtn) leaveBtn.style.display = isOwner ? 'none' : '';
 membersEl.querySelectorAll('.remove-member-btn').forEach(btn => {
   btn.addEventListener('click', async () => {
     const memberId = btn.dataset.memberId;
+    const ok = await showConfirm('Odebrat člena?', 'Člen ztratí přístup k projektu.');
+    if (!ok) return;
     const result = await window.api.deleteProjectMember(memberId);
     if (result) {
       showToast('Člen byl odebrán');
@@ -2254,9 +2269,11 @@ async function loadImportantTasks(showCompleted = false) {
 }
 
 async function loadEverything() {
-  await loadTasks();
-  await loadTaskCategories();
-  await loadProjectCategories();
+  await Promise.all([
+    loadTasks(),
+    loadTaskCategories(),
+    loadProjectCategories()
+  ]);
 }
 
 async function finishAuth(session) {
@@ -2304,7 +2321,7 @@ document.getElementById('onboardingForm').addEventListener('submit', async (e) =
     return;
   }
 
-  // 2. Pokud je vybraná profilovka, nahraj ji
+
   const avatarFile = document.getElementById('onboardingAvatar').files?.[0];
   if (avatarFile) {
     if (!avatarFile.type.startsWith('image/')) {
@@ -2322,14 +2339,17 @@ document.getElementById('onboardingForm').addEventListener('submit', async (e) =
     });
 
     if (!avatarResult.success) {
-      showToast('Profil uložen, ale profilovku se nepodařilo nahrát', 'error');
-    }
-  }
+  showToast('Profil uložen, ale profilovku se nepodařilo nahrát', 'error');
+} else {
+  showToast('Profilový obrázek byl úspěšně nahrán', 'success');
+}
+}
 
-  // 3. Načti aktuální profil z DB (teď už RLS nevadí)
+
+  
   const profile = await window.api.getProfile(session.user.id);
 
-  // 4. Přejdi do aplikace
+ 
   showMainApp();
   updateSidebarProfile(profile || { username, avatar_url: null }, session);
   showPage('page-dnes', 'btn-dnes');
@@ -2340,6 +2360,13 @@ document.getElementById('onboardingForm').addEventListener('submit', async (e) =
   setPageLoading(false);
 
   showToast('Profil byl dokončen.');
+});
+
+document.getElementById('onboardingAvatar').addEventListener('change', (e) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    document.getElementById('onboardingAvatarLabel').textContent = file.name;
+  }
 });
 
 async function loadAccountSettings() {
@@ -2403,6 +2430,15 @@ document.getElementById('settingsAvatarInput')?.addEventListener('change', async
   const profile = await window.api.getProfile(session.user.id);
   updateSidebarProfile(profile, session);
   await loadAccountSettings();
+
+
+  const freshProfile = await window.api.getProfile(session.user.id);
+if (freshProfile?.avatar_url) {
+  const profileIconEl = document.getElementById('profileIcon');
+  profileIconEl.style.backgroundImage = `url("${freshProfile.avatar_url}?t=${Date.now()}")`;
+  profileIconEl.classList.add('has-avatar');
+  profileIconEl.textContent = '';
+}
 
   showToast('Profilovvý obrázek byl změněn');
 });

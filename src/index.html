@@ -10,9 +10,9 @@
 
   <!-- TOAST -->
   <div id="toast" class="toast hidden toast-success">
-  <div id="toast-icon" class="toast-icon"></div>
-  <span id="toast-message">Úkol byl úspěšně smazán!</span>
-</div>
+    <div id="toast-icon" class="toast-icon"></div>
+    <span id="toast-message">Úkol byl úspěšně smazán!</span>
+  </div>
 
   <!-- ==============================
        HLAVNÍ APLIKACE
@@ -48,55 +48,55 @@
           </button>
         </div>
       </div>
-      
+
       <div style="position: relative;">
-  <div class="search-wrapper">
-    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="11" cy="11" r="8"/>
-      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-    </svg>
-    <input type="text" placeholder="Hledejte úkoly a projekty..." />
-  </div>
-  <div id="searchResults" class="search-results hidden"></div>
-</div>
+        <div class="search-wrapper">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" placeholder="Hledejte úkoly a projekty..." />
+        </div>
+        <div id="searchResults" class="search-results hidden"></div>
+      </div>
 
       <nav class="menu">
-  <p class="section-label">MOJE ÚKOLY</p>
-  <button class="menu-btn active" id="btn-dnes">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    Dnes
-  </button>
-  <button class="menu-btn" id="btn-dulezite">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    Důležité
-  </button>
-  <button class="menu-btn" id="btn-vsechnyukoly">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-    Všechny úkoly
-  </button>
-  <div class="menu-divider"></div>
-  <button class="menu-btn create-btn" id="btn-create-taskcategory">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    Vytvořit kategorii
-  </button>
+        <p class="section-label">MOJE ÚKOLY</p>
+        <button class="menu-btn active" id="btn-dnes">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Dnes
+        </button>
+        <button class="menu-btn" id="btn-dulezite">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Důležité
+        </button>
+        <button class="menu-btn" id="btn-vsechnyukoly">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Všechny úkoly
+        </button>
+        <div class="menu-divider"></div>
+        <button class="menu-btn create-btn" id="btn-create-taskcategory">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Vytvořit kategorii
+        </button>
 
-  <p class="section-label">PLÁNOVÁNÍ</p>
-  <button class="menu-btn" id="btn-kalendar">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    Kalendář
-  </button>
+        <p class="section-label">PLÁNOVÁNÍ</p>
+        <button class="menu-btn" id="btn-kalendar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Kalendář
+        </button>
 
-  <p class="section-label">MOJE PROJEKTY</p>
-  <button class="menu-btn" id="btn-vsechny-projekty">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-    Všechny projekty
-  </button>
-  <div class="menu-divider"></div>
-  <button class="menu-btn create-btn" id="btn-create-projectcategory">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    Vytvořit kategorii
-  </button>
-</nav>
+        <p class="section-label">MOJE PROJEKTY</p>
+        <button class="menu-btn" id="btn-vsechny-projekty">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          Všechny projekty
+        </button>
+        <div class="menu-divider"></div>
+        <button class="menu-btn create-btn" id="btn-create-projectcategory">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Vytvořit kategorii
+        </button>
+      </nav>
     </aside>
 
     <!-- HLAVNÍ OBSAH -->
@@ -171,14 +171,12 @@
           <h1 class="page-title">Všechny projekty</h1>
           <p class="page-subtitle">Všechny projekty na jednom místě</p>
         </div>
-
         <div class="top-bar">
           <div class="project-actions">
             <button class="add-project-btn" id="addProjectBtn">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               Nový projekt
             </button>
-
             <button class="add-project-btn secondary-project-btn" id="joinProjectBtn">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M15 3h6v6"/>
@@ -189,141 +187,129 @@
             </button>
           </div>
         </div>
-
         <div class="project-list" id="projectList">
           <div class="empty-state"><p>Zatím žádné projekty. Vytvořte svůj první projekt!</p></div>
         </div>
       </section>
 
       <!-- Stránka: Detail projektu -->
-      <!-- Stránka: Detail projektu -->
-<section class="page hidden" id="page-projekt-detail">
-  <div class="project-detail-topbar">
-    <button class="back-btn" id="backToProjects">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      Zpět na projekty
-    </button>
-    <div class="project-detail-topbar-actions">
-      <button class="project-action-btn edit" id="editProjectBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        Upravit
-      </button>
-      <button class="project-action-btn delete" id="deleteProjectBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-        Smazat
-      </button>
-      <button class="project-action-btn" id="leaveProjectBtn" style="background:#fff0f0;color:#C0392B;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
-        Opustit projekt
-      </button>
-    </div>
-  </div>
-
-  <div class="project-hero-card">
-    <div class="project-hero-banner" id="projectHeroBanner">
-      <div class="project-hero-overlay"></div>
-    </div>
-
-    <div class="project-hero-body">
-      <div class="project-hero-meta-row">
-        <div class="project-detail-category" id="projectDetailCategory"></div>
-        <div class="project-detail-date" id="projectDetailDate"></div>
-      </div>
-
-      <h1 class="project-hero-title" id="projectDetailTitle">Název projektu</h1>
-      <p class="project-hero-description" id="projectDetailDescription"></p>
-
-      <div class="project-hero-progress">
-        <div class="project-progress-bar">
-          <div class="project-progress-fill" id="projectProgressFill"></div>
+      <section class="page hidden" id="page-projekt-detail">
+        <div class="project-detail-topbar">
+          <button class="back-btn" id="backToProjects">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Zpět na projekty
+          </button>
+          <div class="project-detail-topbar-actions">
+            <button class="project-action-btn edit" id="editProjectBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Upravit
+            </button>
+            <button class="project-action-btn delete" id="deleteProjectBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              Smazat
+            </button>
+            <button class="project-action-btn" id="leaveProjectBtn" style="background:#fff0f0;color:#C0392B;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
+              Opustit projekt
+            </button>
+          </div>
         </div>
-        <span class="project-progress-label" id="projectProgressLabel">0% dokončeno</span>
-      </div>
 
-      <div class="project-hero-members-section">
-        <p class="project-members-label">Členové týmu</p>
-        <div class="project-hero-members" id="projectDetailMembers"></div>
-      </div>
+        <div class="project-hero-card">
+          <div class="project-hero-banner" id="projectHeroBanner">
+            <div class="project-hero-overlay"></div>
+          </div>
+          <div class="project-hero-body">
+            <div class="project-hero-meta-row">
+              <div class="project-detail-category" id="projectDetailCategory"></div>
+              <div class="project-detail-date" id="projectDetailDate"></div>
+            </div>
+            <h1 class="project-hero-title" id="projectDetailTitle">Název projektu</h1>
+            <p class="project-hero-description" id="projectDetailDescription"></p>
+            <div class="project-hero-progress">
+              <div class="project-progress-bar">
+                <div class="project-progress-fill" id="projectProgressFill"></div>
+              </div>
+              <span class="project-progress-label" id="projectProgressLabel">0% dokončeno</span>
+            </div>
+            <div class="project-hero-members-section">
+              <p class="project-members-label">Členové týmu</p>
+              <div class="project-hero-members" id="projectDetailMembers"></div>
+            </div>
+            <div class="project-share-row" id="projectCodeRow">
+              <span class="project-share-label">Kód projektu:</span>
+              <span class="project-share-code" id="projectJoinCode"></span>
+              <button class="copy-project-code-btn" id="copyProjectCodeBtn" title="Kopírovat kód">Kopírovat</button>
+            </div>
+          </div>
+        </div>
 
-      <div class="project-share-row" id="projectCodeRow">
-        <span class="project-share-label">Kód projektu:</span>
-        <span class="project-share-code" id="projectJoinCode"></span>
-        <button class="copy-project-code-btn" id="copyProjectCodeBtn" title="Kopírovat kód">
-          Kopírovat
-        </button>
-      </div>
-    </div>
-  </div>
+        <div class="project-attachments-section">
+          <div class="project-tasks-header">
+            <h2 class="project-tasks-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              Přílohy
+            </h2>
+            <button class="attach-btn" id="addAttachmentBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Přidat soubor
+            </button>
+          </div>
+          <div class="attachments-list" id="attachmentsList">
+            <div class="attachments-empty">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+              <p>Žádné přílohy. Přidejte soubory kliknutím na tlačítko.</p>
+            </div>
+          </div>
+        </div>
 
-  <div class="project-attachments-section">
-    <div class="project-tasks-header">
-      <h2 class="project-tasks-title">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-        Přílohy
-      </h2>
-      <button class="attach-btn" id="addAttachmentBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Přidat soubor
-      </button>
-    </div>
-    <div class="attachments-list" id="attachmentsList">
-      <div class="attachments-empty">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-        <p>Žádné přílohy. Přidejte soubory kliknutím na tlačítko.</p>
-      </div>
-    </div>
-  </div>
+        <div class="project-tasks-section">
+          <div class="project-tasks-header">
+            <h2 class="project-tasks-title">Úkoly projektu</h2>
+            <button class="add-task-btn" id="addProjectTaskBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Nový úkol
+            </button>
+          </div>
+          <div class="task-list" id="projectTaskList">
+            <div class="empty-state"><p>Zatím žádné úkoly v tomto projektu.</p></div>
+          </div>
+        </div>
+      </section>
 
-  <div class="project-tasks-section">
-    <div class="project-tasks-header">
-      <h2 class="project-tasks-title">Úkoly projektu</h2>
-      <button class="add-task-btn" id="addProjectTaskBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Nový úkol
-      </button>
-    </div>
-    <div class="task-list" id="projectTaskList">
-      <div class="empty-state"><p>Zatím žádné úkoly v tomto projektu.</p></div>
-    </div>
-  </div>
-</section>
-
-  <!-- Stránka: Kalendář -->
-<section class="page hidden" id="page-kalendar">
-  <div class="header">
-    <h1 class="page-title">Kalendář</h1>
-    <p class="page-subtitle">Přehled úkolů a projektů s termíny dokončení</p>
-  </div>
-
-  <div class="calendar-wrapper">
-    <div class="calendar-header">
-      <h2 class="calendar-month-label" id="calMonthLabel"></h2>
-      <div class="calendar-nav-buttons">
-        <button class="calendar-nav-btn" id="calPrev">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <button class="calendar-nav-btn" id="calNext">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="calendar-grid" id="calendarGrid">
-      <div class="calendar-day-name">Po</div>
-      <div class="calendar-day-name">Út</div>
-      <div class="calendar-day-name">St</div>
-      <div class="calendar-day-name">Čt</div>
-      <div class="calendar-day-name">Pá</div>
-      <div class="calendar-day-name">So</div>
-      <div class="calendar-day-name">Ne</div>
-    </div>
-  </div>
-
-  <div class="calendar-events-section">
-    <h2 class="calendar-events-title">Nadcházející události</h2>
-    <div id="calendarEventsList"></div>
-  </div>
-</section>
+      <!-- Stránka: Kalendář -->
+      <section class="page hidden" id="page-kalendar">
+        <div class="header">
+          <h1 class="page-title">Kalendář</h1>
+          <p class="page-subtitle">Přehled úkolů a projektů s termíny dokončení</p>
+        </div>
+        <div class="calendar-wrapper">
+          <div class="calendar-header">
+            <h2 class="calendar-month-label" id="calMonthLabel"></h2>
+            <div class="calendar-nav-buttons">
+              <button class="calendar-nav-btn" id="calPrev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="calendar-nav-btn" id="calNext">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="calendar-grid" id="calendarGrid">
+            <div class="calendar-day-name">Po</div>
+            <div class="calendar-day-name">Út</div>
+            <div class="calendar-day-name">St</div>
+            <div class="calendar-day-name">Čt</div>
+            <div class="calendar-day-name">Pá</div>
+            <div class="calendar-day-name">So</div>
+            <div class="calendar-day-name">Ne</div>
+          </div>
+        </div>
+        <div class="calendar-events-section">
+          <h2 class="calendar-events-title">Nadcházející události</h2>
+          <div id="calendarEventsList"></div>
+        </div>
+      </section>
 
       <!-- Stránka: Nastavení účtu -->
       <section class="page hidden" id="page-accountsettings">
@@ -371,15 +357,15 @@
               <label>Nové heslo</label>
               <div class="password-input-wrapper">
                 <input type="password" id="settingsNewPassword" />
-                <div class="password-rules hidden" id="settingsPasswordRules">
-                  <p class="password-rule invalid" id="settings-rule-length">• Alespoň 8 znaků</p>
-                  <p class="password-rule invalid" id="settings-rule-number">• Obsahuje alespoň jedno číslo</p>
-                  <p class="password-rule invalid" id="settings-rule-special">• Obsahuje alespoň jeden speciální znak</p>
-                </div>
                 <button type="button" class="toggle-password" data-target="settingsNewPassword">
                   <svg class="eye-icon eye-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
                   <svg class="eye-icon eye-closed hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
                 </button>
+              </div>
+              <div class="password-rules hidden" id="settingsPasswordRules">
+                <p class="password-rule invalid" id="settings-rule-length">• Alespoň 8 znaků</p>
+                <p class="password-rule invalid" id="settings-rule-number">• Obsahuje alespoň jedno číslo</p>
+                <p class="password-rule invalid" id="settings-rule-special">• Obsahuje alespoň jeden speciální znak</p>
               </div>
             </div>
             <div class="settings-field">
@@ -418,7 +404,7 @@
           <label>Kategorie</label>
           <select id="detailCategory"></select>
 
-          <label>Termín dokončení</label>
+          <label>Termín dokončení <span class="required">*</span></label>
           <div class="date-time-row">
             <input type="date" id="detailDueDate" />
             <input type="time" id="detailDueTime" />
@@ -469,57 +455,51 @@
       <p class="auth-footer">Ještě nemáte účet? <a href="#" id="link-to-reg">Registrovat se.</a></p>
     </div>
   </section>
+
+  <!-- Registrace -->
   <section id="page-register" class="auth-page hidden">
-  <div class="auth-card">
-    <img src="../assets/logo.png" alt="done. logo" class="auth-logo">
-
-    <h1 class="auth-title">Vytvořte si účet!</h1>
-    <p class="auth-subtitle">Začněte si organizovat své povinnosti</p>
-
-    <form id="registerForm">
-
-      <div class="settings-field">
-        <label>E-mailová adresa <span class="required">*</span></label>
-        <input type="email" placeholder="vas@email.cz" required />
-      </div>
-      <div class="settings-field">
-        <label>Heslo <span class="required">*</span></label>
-
-        <div class="password-input-wrapper">
-          <input type="password" id="registerPassword" placeholder="••••••••" required />
-
-          <button type="button" class="toggle-password" data-target="registerPassword">
-            <svg class="eye-icon eye-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-
-            <svg class="eye-icon eye-closed hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/>
-              <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/>
-              <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/>
-              <path d="m2 2 20 20"/>
-            </svg>
-          </button>
+    <div class="auth-card">
+      <img src="../assets/logo.png" alt="done. logo" class="auth-logo">
+      <h1 class="auth-title">Vytvořte si účet!</h1>
+      <p class="auth-subtitle">Začněte si organizovat své povinnosti</p>
+      <form id="registerForm">
+        <div class="settings-field">
+          <label>E-mailová adresa <span class="required">*</span></label>
+          <input type="email" placeholder="vas@email.cz" required />
         </div>
-        <div class="password-rules hidden" id="passwordRules">
-          <p class="password-rule invalid" id="rule-length">• Alespoň 8 znaků</p>
-          <p class="password-rule invalid" id="rule-number">• Obsahuje alespoň jedno číslo</p>
-          <p class="password-rule invalid" id="rule-special">• Obsahuje alespoň jeden speciální znak</p>
+        <div class="settings-field">
+          <label>Heslo <span class="required">*</span></label>
+          <div class="password-input-wrapper">
+            <input type="password" id="registerPassword" placeholder="••••••••" required />
+            <button type="button" class="toggle-password" data-target="registerPassword">
+              <svg class="eye-icon eye-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="eye-icon eye-closed hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/>
+                <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/>
+                <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/>
+                <path d="m2 2 20 20"/>
+              </svg>
+            </button>
+          </div>
+          <div class="password-rules hidden" id="passwordRules">
+            <p class="password-rule invalid" id="rule-length">• Alespoň 8 znaků</p>
+            <p class="password-rule invalid" id="rule-number">• Obsahuje alespoň jedno číslo</p>
+            <p class="password-rule invalid" id="rule-special">• Obsahuje alespoň jeden speciální znak</p>
+          </div>
+          <p class="gdpr">
+            Kliknutím na „Vytvořit účet" souhlasíte se zpracováním osobních údajů pro účely registrace.
+          </p>
         </div>
-        <p class="gdpr">
-          Kliknutím na „Vytvořit účet“ souhlasíte se zpracováním osobních údajů pro účely registrace.
-        </p>
-      </div>
-
-      <button type="submit" class="auth-submit-btn">Vytvořit účet</button>
-    </form>
-
-    <p class="auth-footer">
-      Již máte účet? <a href="#" id="link-to-login">Přihlaste se.</a>
-    </p>
-  </div>
-</section>
+        <button type="submit" class="auth-submit-btn">Vytvořit účet</button>
+      </form>
+      <p class="auth-footer">
+        Již máte účet? <a href="#" id="link-to-login">Přihlaste se.</a>
+      </p>
+    </div>
+  </section>
 
   <!-- Potvrzení emailu -->
   <section id="page-email-confirm" class="auth-page hidden">
@@ -560,48 +540,48 @@
           </label>
           <input type="file" id="onboardingAvatar" accept="image/*" hidden />
         </div>
-
         <button type="submit" class="auth-submit-btn">Pokračovat</button>
       </form>
     </div>
   </section>
 
+  <!-- Reset hesla -->
   <section id="page-reset-password" class="auth-page hidden">
-  <div class="auth-card">
-    <img src="../assets/logo.png" alt="done. logo" class="auth-logo">
-    <h1 class="auth-title">Nové heslo</h1>
-    <p class="auth-subtitle">Zadej své nové heslo</p>
-    <div class="settings-field">
-      <label>Nové heslo <span class="required">*</span></label>
-      <div class="password-input-wrapper">
-        <input type="password" id="resetNewPassword" placeholder="••••••••" />
+    <div class="auth-card">
+      <img src="../assets/logo.png" alt="done. logo" class="auth-logo">
+      <h1 class="auth-title">Nové heslo</h1>
+      <p class="auth-subtitle">Zadej své nové heslo</p>
+      <div class="settings-field">
+        <label>Nové heslo <span class="required">*</span></label>
+        <div class="password-input-wrapper">
+          <input type="password" id="resetNewPassword" placeholder="••••••••" />
+          <button type="button" class="toggle-password" data-target="resetNewPassword">
+            <svg class="eye-icon eye-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="eye-icon eye-closed hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+          </button>
+        </div>
         <div class="password-rules" id="resetPasswordRules">
           <p class="password-rule invalid" id="reset-rule-length">• Alespoň 8 znaků</p>
           <p class="password-rule invalid" id="reset-rule-special">• Obsahuje alespoň jeden speciální znak</p>
           <p class="password-rule invalid" id="reset-rule-number">• Obsahuje alespoň jedno číslo</p>
         </div>
-        <button type="button" class="toggle-password" data-target="resetNewPassword">
-          <svg class="eye-icon eye-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-          <svg class="eye-icon eye-closed hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
-        </button>
       </div>
-    </div>
-    <div class="settings-field" style="margin-top: 12px;">
-      <label>Potvrzení hesla <span class="required">*</span></label>
-      <div class="password-input-wrapper">
-        <input type="password" id="resetConfirmPassword" placeholder="••••••••" />
-        <button type="button" class="toggle-password" data-target="resetConfirmPassword">
-          <svg class="eye-icon eye-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-          <svg class="eye-icon eye-closed hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
-        </button>
+      <div class="settings-field" style="margin-top: 12px;">
+        <label>Potvrzení hesla <span class="required">*</span></label>
+        <div class="password-input-wrapper">
+          <input type="password" id="resetConfirmPassword" placeholder="••••••••" />
+          <button type="button" class="toggle-password" data-target="resetConfirmPassword">
+            <svg class="eye-icon eye-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="eye-icon eye-closed hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+          </button>
+        </div>
       </div>
+      <button class="auth-submit-btn" id="submitResetPassword" style="margin-top: 24px;">Pokračovat</button>
+      <p class="auth-footer" style="margin-top: 16px;">
+        <a href="#" id="resetBackToLogin">Zpět na přihlášení</a>
+      </p>
     </div>
-    <button class="auth-submit-btn" id="submitResetPassword" style="margin-top: 24px;">Nastavit nové heslo</button>
-    <p class="auth-footer" style="margin-top: 16px;">
-      <a href="#" id="resetBackToLogin">Zpět na přihlášení</a>
-    </p>
-  </div>
-</section>
+  </section>
 
   <!-- ==============================
        OVERLAYE
@@ -729,17 +709,18 @@
     </div>
   </div>
 
+  <!-- Připojit se k projektu -->
   <div id="overlay-joinproject" class="overlay hidden">
-  <div class="popup">
-    <h1 class="popup-title">Připojit se ke projektu</h1>
-    <label>Kód projektu</label>
-    <input id="joinCodeInput" type="text" placeholder="Zadejte kód projektu" />
-    <div class="popup-buttons">
-      <button class="cancel" id="cancelJoinProject">Zrušit</button>
-      <button class="create-category" id="confirmJoinProject">Připojit</button>
+    <div class="popup">
+      <h1 class="popup-title">Připojit se ke projektu</h1>
+      <label>Kód projektu</label>
+      <input id="joinCodeInput" type="text" placeholder="Zadejte kód projektu" />
+      <div class="popup-buttons">
+        <button class="cancel" id="cancelJoinProject">Zrušit</button>
+        <button class="create-category" id="confirmJoinProject">Připojit</button>
+      </div>
     </div>
   </div>
-</div>
 
   <!-- Upravit kategorii -->
   <div class="overlay hidden" id="overlay-editcategory">
@@ -766,17 +747,17 @@
     </div>
   </div>
 
-<div class="overlay hidden" id="overlay-confirm">
-  <div class="popup" style="max-width: 360px; text-align: center;">
-    <p class="confirm-title" id="confirmTitle">Opravdu chceš smazat?</p>
-    <p class="confirm-subtitle" id="confirmSubtitle">Tato akce je nevratná.</p>
-    <div class="popup-buttons" style="margin-top: 24px;">
-      <button class="cancel" id="confirmCancel">Zrušit</button>
-      <button class="create-category" id="confirmOk" style="background:#C0392B;">Smazat</button>
+  <!-- Potvrzovací dialog -->
+  <div class="overlay hidden" id="overlay-confirm">
+    <div class="popup" style="max-width: 360px; text-align: center;">
+      <p class="confirm-title" id="confirmTitle">Opravdu chceš smazat?</p>
+      <p class="confirm-subtitle" id="confirmSubtitle">Tato akce je nevratná.</p>
+      <div class="popup-buttons" style="margin-top: 24px;">
+        <button class="cancel" id="confirmCancel">Zrušit</button>
+        <button class="create-category" id="confirmOk" style="background:#C0392B;">Smazat</button>
+      </div>
     </div>
   </div>
-</div>
-
 
   <script src="script.js"></script>
 </body>
