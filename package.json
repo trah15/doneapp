@@ -61,7 +61,6 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.101.1",
-    "better-sqlite3": "^12.8.0",
     "electron-store": "^11.0.2"
   }
 }
