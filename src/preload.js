@@ -87,7 +87,6 @@ removeAvatar: (params) => ipcRenderer.invoke('profile:removeAvatar', params),
 
 }
 
-
 contextBridge.exposeInMainWorld('api', api);
 
 contextBridge.exposeInMainWorld('electronAuth', {
