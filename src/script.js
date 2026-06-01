@@ -599,8 +599,11 @@ function createTaskElement(task) {
         <div class="task-assignees-preview">
           ${task.assignees.map((assignee, index) => `
             <div class="task-assignee-chip">
-              <div class="task-assignee-avatar" style="background:${getMemberColor(index)}">
-                ${getInitials(assignee.username)}
+              <div class="task-assignee-avatar ${assignee.avatar_url ? 'has-image' : ''}" 
+                style="${assignee.avatar_url 
+                  ? `background-image:url('${assignee.avatar_url}');background-size:cover;background-position:center;` 
+                  : `background:${getMemberColorById(assignee.user_id)};`}">
+                ${assignee.avatar_url ? '' : getInitials(assignee.username)}
               </div>
               <span class="task-assignee-name">${assignee.username}</span>
             </div>
@@ -1200,7 +1203,7 @@ async function renderTaskAssignees(task) {
       <div class="detail-assignee-avatar ${member.avatar_url ? 'has-image' : ''}"
         style="${member.avatar_url
           ? `background-image:url('${member.avatar_url}');background-size:cover;background-position:center;`
-          : `background:${getMemberColor(index)};`}">
+          : `background:${getMemberColorById(member.user_id)};`}">
         ${member.avatar_url ? '' : getInitials(member.username)}
       </div>
       <span class="detail-assignee-name">${member.username}</span>
@@ -1464,6 +1467,12 @@ function getMemberColor(index) {
   return memberColors[index % memberColors.length];
 }
 
+function getMemberColorById(userId) {
+  if (!userId) return memberColors[0];
+  const hash = [...userId].reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  return memberColors[hash % memberColors.length];
+}
+
 function getInitials(name) {
   return name.trim().split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 }
@@ -1505,7 +1514,7 @@ function createProjectCard(project, members, progress, totalTasks) {
   const membersHtml = members.slice(0, 4).map((m, i) =>
     m.avatar_url
       ? `<div class="member-avatar-small" style="background-image:url('${m.avatar_url}');background-size:cover;background-position:center;" title="${m.username}"></div>`
-      : `<div class="member-avatar-small" style="background:${getMemberColor(i)}" title="${m.username}">${getInitials(m.username)}</div>`
+      : `<div class="member-avatar-small" style="background:${getMemberColorById(m.user_id)}" title="${m.username}">${getInitials(m.username)}</div>`
   ).join('');
   const extraMembers = members.length > 4 ? `<div class="member-avatar-small extra">+${members.length - 4}</div>` : '';
 
@@ -1666,7 +1675,7 @@ async function openProjectDetail(projectId) {
         <div class="project-member-chip-avatar ${m.avatar_url ? 'has-image' : ''}"
           style="${m.avatar_url
             ? `background-image:url('${m.avatar_url}');background-size:cover;background-position:center;`
-            : `background:${getMemberColor(i)};`}">
+            : `background:${getMemberColorById(m.user_id)};`}">
           ${m.avatar_url ? '' : getInitials(m.username)}
         </div>
         <span class="project-member-chip-name">${m.username}</span>
@@ -1806,6 +1815,11 @@ document.getElementById('createProject').addEventListener('click', async () => {
   }
 });
 
+function getMemberColorById(userId) {
+  const hash = [...userId].reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  return memberColors[hash % memberColors.length];
+}
+
 
 // ==============================
 // 11. EDITACE PROJEKTU
@@ -1838,8 +1852,8 @@ document.getElementById('saveEditProject').addEventListener('click', async () =>
   const due_time = document.getElementById('editProjectTime').value || null;
 
   titleInput.classList.remove('input-error');
-  document.getElementById('newProjectDate').classList.remove('input-error');
-  document.querySelectorAll('#overlay-newproject .error-message').forEach(e => e.remove());
+  document.getElementById('editProjectDate').classList.remove('input-error');
+  document.querySelectorAll('#overlay-editproject .error-message').forEach(e => e.remove());
 
   let hasError = false;
 
@@ -1852,7 +1866,7 @@ document.getElementById('saveEditProject').addEventListener('click', async () =>
     hasError = true;
   }
 
-  const dateInput = document.getElementById('newProjectDate');
+  const dateInput = document.getElementById('editProjectDate');
   const due_date = dateInput.value;
 
   if (!due_date) {
@@ -2661,3 +2675,4 @@ function renderUpcomingEvents(eventMap, today) {
     list.appendChild(group);
   });
 }
+

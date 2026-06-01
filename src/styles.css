@@ -7,6 +7,10 @@
 
   --color-svetlyhoverfiltry: #E6ECFB;
   --color-mid: #79ADFF;
+
+  --color-varovnacervena: #C0392B;
+  --color-pozadi: #EBF1FF;
+
 }
 
 * {
@@ -30,7 +34,7 @@ body {
   margin: 0;
   width: 100vw;
   height: 100vh;
-  background: #EBF1FF;
+  background: var(--color-pozadi);
   user-select: none;
   -webkit-app-region: drag;
 }
@@ -51,10 +55,10 @@ button, input, textarea, select {
   cursor: pointer;
 }
 
-.input-error { border-color: #C0392B !important; }
+.input-error { border-color: var(--color-varovnacervena)!important; }
 
 .error-message {
-  color: #C0392B;
+  color: var(--color-varovnacervena);
   font-size: 12px;
   font-family: 'InterRegular';
   margin-top: -12px;
@@ -62,7 +66,7 @@ button, input, textarea, select {
 }
 
 .required {
-  color: #C0392B;
+  color: var(--color-varovnacervena);
   font-size: 13px;
 }
 
@@ -102,7 +106,7 @@ button, input, textarea, select {
 .auth-title {
   text-align: center;
   font-family: 'InterSemiBold';
-  color: #002344;
+  color: var(--color-VSECHENTEXT);
   font-size: 24px;
   margin: 0 0 8px 0;
 }
@@ -132,14 +136,14 @@ button, input, textarea, select {
   gap: 8px;
   font-family: 'InterRegular';
   font-size: 13px;
-  color: #002344;
+  color: var(--color-VSECHENTEXT);
   cursor: pointer;
 }
 
 .forgot-password {
   font-family: 'InterRegular';
   font-size: 13px;
-  color: #0064B3;
+  color: var(--color-BUTTONY);
   text-decoration: none;
 }
 
@@ -149,7 +153,7 @@ button, input, textarea, select {
 
 .auth-submit-btn {
   width: 100%;
-  background: #0064B3;
+  background: var(--color-BUTTONY);
   color: white;
   border: none;
   padding: 12px;
@@ -162,7 +166,7 @@ button, input, textarea, select {
 }
 
 .auth-submit-btn:hover {
-  background: #005BA3;
+  background: var(--color-BUTTONY-HOVER);
 }
 
 .auth-footer {
@@ -186,7 +190,7 @@ button, input, textarea, select {
 /* Potvrzení emailu */
 .email-confirm-icon {
   width: 64px; height: 64px;
-  background: #EBF1FF;
+  background: var(--color-pozadi);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -195,8 +199,8 @@ button, input, textarea, select {
 }
 
 .email-confirm-box {
-  background: #EBF1FF;
-  border: 1.5px solid #BFD4FF;
+  background: var(--color-pozadi);
+  border: 1.5px solid var(--color-svetlyhoverfiltry); 
   border-radius: 10px;
   padding: 16px 20px;
   font-family: 'InterRegular';
@@ -535,6 +539,18 @@ button, input, textarea, select {
 
 .sidebar-category-task.active .category-delete-btn:hover,
 .sidebar-category-project.active .category-delete-btn:hover { background: rgba(255,255,255,0.2); }
+
+.sidebar-category-task .category-actions,
+.sidebar-category-project .category-actions {
+  flex-shrink: 0; /* ikonky se nezmenší */
+}
+
+.sidebar-category-task,
+.sidebar-category-project {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
 
 /* Výsledky vyhledávání */
 .search-results {

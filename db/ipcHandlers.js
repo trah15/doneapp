@@ -491,21 +491,14 @@ export default function setUpHandlers() {
     return flattenCategory(data);
   });
 
-  ipcMain.handle('projects:update', async (_, project) => {
-  const { data: { session } } = await supabase.auth.getSession();
-  console.log('projects:update incoming:', project);
-  console.log('projects:update session user:', session?.user?.id);
-
-  const { id, ...updates } = project;
+ipcMain.handle('projects:update', async (_, project) => {
+  const { id: projectId, ...updates } = project;
 
   const { data, error } = await supabase
     .from('Project')
     .update(updates)
-    .eq('id', id)
+    .eq('id', projectId)
     .select('*, ProjectCategory(name, emoji)');
-
-  console.log('projects:update result data:', data);
-  console.log('projects:update result error:', error);
 
   if (error || !data || data.length === 0) {
     return null;
