@@ -1,6 +1,6 @@
 # done.
 
-Je desktopová aplikace pro správu úkolů a týmových projektů určená především pro studenty.
+Desktopová aplikace pro správu úkolů a týmových projektů určená především pro studenty.
 
 ## O aplikaci
 
@@ -28,7 +28,7 @@ Je desktopová aplikace pro správu úkolů a týmových projektů určená pře
 ### Windows
 1. Stáhněte instalátor z [GitHub Releases](https://github.com/trah15/doneapp/releases/tag/v1.1.0)
 2. Spusťte `done Setup 1.1.0.exe`
-3. Pokud Windows zobrazí varování, klikni na „Více informací" → „Přesto spustit"
+3. Pokud Windows zobrazí varování, klikněte na „Více informací" → „Přesto spustit"
 
 ## Autor
 
