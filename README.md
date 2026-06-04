@@ -26,8 +26,8 @@ Je desktopová aplikace pro správu úkolů a týmových projektů určená pře
 ## Instalace
 
 ### Windows
-1. Stáhni instalátor z [GitHub Releases](https://github.com/trah15/doneapp/releases/tag/v1.0.0)
-2. Spusť `done Setup 1.1.0.exe`
+1. Stáhněte instalátor z [GitHub Releases](https://github.com/trah15/doneapp/releases/tag/v1.1.0)
+2. Spusťte `done Setup 1.1.0.exe`
 3. Pokud Windows zobrazí varování, klikni na „Více informací" → „Přesto spustit"
 
 ## Autor
